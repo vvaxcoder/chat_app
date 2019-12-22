@@ -1,3 +1,19 @@
 .body-div {
     height: 100vh;
+  .body-container {
+    margin-top: 50px;
+    .row {
+      .col.s12 {
+        .card {
+          .card-tabs {
+            .tabs.tabs-fixed-width {
+              .tab {
+
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
