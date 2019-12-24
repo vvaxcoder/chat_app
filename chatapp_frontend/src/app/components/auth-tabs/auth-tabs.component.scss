@@ -1,0 +1,28 @@
+.body-div {
+    height: 100vh;
+  .body-container {
+    margin-top: 50px;
+    .row {
+      .col.s12 {
+        .card {
+          .card-tabs {
+            .tabs.tabs-fixed-width {
+              .tab > a {
+                font-size: 18px;
+                font-weight: bold;
+                
+                color: #64b5f6;
+              }
+              .tab > .active {
+                background: inherit !important;
+              }
+            }
+            .auth-content {
+              height: 503px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
