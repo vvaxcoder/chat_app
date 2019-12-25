@@ -3,24 +3,29 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
-const config = require("./config");
+const { db_url, port } = require("./config");
 
 const auth = require("./routes/authRoutes");
 
 const app = express();
 
+app.use(express.json({ limit: '50mb' }));
+
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
 app.use(cookieParser());
 
 app.use(logger("dev"));
 
-app.use("/api/chatapp", auth);
-
 mongoose.Promise = global.Promise;
 
-mongoose.connect(config.bd_url, {
-  useNewUrlParser: true
+mongoose.connect(db_url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
-app.listen(config.port, () => {
-  console.log(`Running on port ${config.port}`);
+app.use("/api/chatapp", auth);
+
+app.listen(port, () => {
+  console.log(`Running on port ${port}`);
 });
