@@ -67,6 +67,8 @@ module.exports = {
             expiresIn: 1200
           });
 
+          resp.cookie('auth', token);
+
           resp.status(HttpStatus.CREATED).json({
             message: "User created successfully",
             user,
