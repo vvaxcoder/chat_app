@@ -21,4 +21,4 @@ import { SignupComponent } from '../components/signup/signup.component';
   ],
   providers: [AuthService]
 })
-export class AuthModule { }
+export class AuthModule {}

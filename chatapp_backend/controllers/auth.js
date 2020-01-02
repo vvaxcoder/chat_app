@@ -1,9 +1,10 @@
 const Joi = require("@hapi/joi");
 const HttpStatus = require("http-status-codes");
-const User = require("../models/userModel");
-const transformCases = require("../helpers/transformCases");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
+const User = require("../models/userModel");
+const transformCases = require("../helpers/transformCases");
 const { secret } = require('../config');
 
 module.exports = {
