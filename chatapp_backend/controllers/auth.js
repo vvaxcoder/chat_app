@@ -26,7 +26,7 @@ module.exports = {
     if (error && error.details) {
       return resp
         .status(HttpStatus.BAD_REQUEST)
-        .json({ message: error.details });
+        .json({ msg: error.details });
     }
 
     const userEmail = await User.findOne({
