@@ -1,3 +1,5 @@
+import { StreamsRoutingModule } from './modules/streams-routing.module';
+import { StreamsModule } from './modules/streams.module';
 import { AuthRoutingModule } from './modules/auth-routing.module';
 import { AuthModule } from './modules/auth.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,12 +9,14 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AuthModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    StreamsModule,
+    StreamsRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
