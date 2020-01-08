@@ -83,5 +83,34 @@ module.exports = {
             .json({ message: "Error occured" })
         );
     });
+  },
+
+  async loginUser(req, resp) {
+    if (!req.body.username|| !req.body.password) {
+      return resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'No empty fields allowed' });
+    }
+
+    const { username } = req.body;
+
+    await User.findOne({ username: transformCases.firstLetterUppercase(username) }).then(user => {
+      if (!user) {
+        return resp.status(HttpStatus.NOT_FOUND).json({ message: 'Username not found' });
+      }
+
+      return bcrypt.compare(req.body.password, user.password).then(result => {
+        if (!result) {
+          return resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Password is incorrect' });
+        }
+
+        const token = jwt.sign({ data: user }, secret, { expiresIn: 10000 });
+
+        resp.cookie('auth', token);
+
+        return resp.status(HttpStatus.OK).json({ message: 'Login successful', user, token });
+      })
+    })
+    .catch(err => {
+      return resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured' });
+    })
   }
 };
