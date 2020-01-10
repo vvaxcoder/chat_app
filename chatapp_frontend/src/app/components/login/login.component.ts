@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   showSpinner = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.init();
@@ -26,7 +28,27 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
+    this.showSpinner = true;
 
+    this.authService.loginUser(this.loginForm.value).subscribe(data => {
+      console.log('data = ', data);
+
+      this.loginForm.reset();
+
+      setTimeout(() => {
+        this.router.navigate(['streams']);
+      }, 2000);
+    }, error => {
+      this.showSpinner = false;
+
+      if (error.error.msg) {
+        this.errorMessage = error.error.msg[0].message;
+      }
+
+      if (error.error.message) {
+        this.errorMessage = error.error.message;
+      }
+    });
   }
 
 }
