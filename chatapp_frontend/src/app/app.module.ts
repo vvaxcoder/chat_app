@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { StreamsRoutingModule } from './modules/streams-routing.module';
 import { StreamsModule } from './modules/streams.module';
 import { AuthRoutingModule } from './modules/auth-routing.module';
@@ -18,7 +19,7 @@ import { AppComponent } from './app.component';
     StreamsModule,
     StreamsRoutingModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
