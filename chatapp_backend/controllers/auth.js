@@ -65,7 +65,7 @@ module.exports = {
       User.create(body)
         .then(user => {
           const token = jwt.sign({ user }, secret, {
-            expiresIn: 1200
+            expiresIn: '1h'
           });
 
           resp.cookie('auth', token);
@@ -102,7 +102,7 @@ module.exports = {
           return resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Password is incorrect' });
         }
 
-        const token = jwt.sign({ data: user }, secret, { expiresIn: 10000 });
+        const token = jwt.sign({ data: user }, secret, { expiresIn: '1h' });
 
         resp.cookie('auth', token);
 
