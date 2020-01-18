@@ -3,9 +3,10 @@ import { TokenService } from './../services/token.service';
 import { StreamsComponent } from './../components/streams/streams.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SideComponent } from '../components/side/side.component';
 
 @NgModule({
-  declarations: [StreamsComponent, ToolbarComponent],
+  declarations: [StreamsComponent, ToolbarComponent, SideComponent],
   imports: [
     CommonModule
   ],
