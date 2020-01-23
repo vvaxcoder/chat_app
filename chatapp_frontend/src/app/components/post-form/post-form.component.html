@@ -2,9 +2,9 @@
   <div class="col s12 m12 l10">
     <div class="card postDiv">
       <div class="card-content">
-        <form>
+        <form [formGroup]="postForm" novalidate (ngSubmit)="submitPost()">
           <div class="formDiv">
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
+            <textarea formControlName="post" class="materialize-textarea"></textarea>
 
             <div class="file-field input-field">
               <div class="row">
@@ -14,7 +14,7 @@
                       <i class="material-icons">image</i>
                       Image
                     </span>
-                    <input type="file" />
+                    <input class="input-file" type="file" />
                   </div>
                   <div class="file-path-wrapper">
                     <input class="file-path validate" type="text" />

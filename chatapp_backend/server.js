@@ -44,8 +44,10 @@ app.use((req, resp, next) => {
 });
 
 const auth = require("./routes/authRoutes");
+const posts = require("./routes/postRoutes");
 
 app.use("/api/chatapp", auth);
+app.use("/api/chatapp", posts);
 
 app.listen(port, () => {
   console.log(`Running on port ${port}`);
