@@ -18,7 +18,7 @@ module.exports = {
           return resp
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
             .json({
-              message: "Token has expired. Please, logon again",
+              message: "Token has expired. Please, login again",
               token: null
             });
         }
