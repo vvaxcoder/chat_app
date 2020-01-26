@@ -4,8 +4,11 @@ const HttpStatus = require("http-status-codes");
 
 module.exports = {
   verifyToken: (req, resp, next) => {
-    const token = req.cookies.auth;
-    console.log(req.headers);
+    if (!req.headers.authorization) {
+      return resp.status(HttpStatus.UNAUTHORIZED).json({ message: 'No Authorization' });
+    }
+
+    const token = req.cookies.auth || req.headers.authorization.split(' ')[1];
 
     if (!token) {
       return resp
