@@ -1,3 +1,5 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './services/token-interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { StreamsRoutingModule } from './modules/streams-routing.module';
 import { StreamsModule } from './modules/streams.module';
@@ -19,7 +21,9 @@ import { AppComponent } from './app.component';
     StreamsModule,
     StreamsRoutingModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, {
+    provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

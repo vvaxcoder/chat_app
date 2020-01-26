@@ -5,6 +5,7 @@ const HttpStatus = require("http-status-codes");
 module.exports = {
   verifyToken: (req, resp, next) => {
     const token = req.cookies.auth;
+    console.log(req.headers);
 
     if (!token) {
       return resp
