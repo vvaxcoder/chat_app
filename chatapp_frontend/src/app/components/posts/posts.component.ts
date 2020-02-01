@@ -1,5 +1,6 @@
 import { PostService } from './../../services/post.service';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-posts',
@@ -21,5 +22,9 @@ export class PostsComponent implements OnInit {
       console.log(data);
       this.posts = data.posts;
     });
+  }
+
+  timeFromNow(time) {
+    return moment(time).fromNow();
   }
 }

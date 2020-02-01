@@ -8,6 +8,10 @@ const { db_url, port } = require("./config");
 
 const app = express();
 
+const server  = require('http').createServer(app);
+
+const io = require('socket.io').listen(server);
+
 app.use(express.json({ limit: "50mb" }));
 
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -49,6 +53,6 @@ const posts = require("./routes/postRoutes");
 app.use("/api/chatapp", auth);
 app.use("/api/chatapp", posts);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Running on port ${port}`);
 });
