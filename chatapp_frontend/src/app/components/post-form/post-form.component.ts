@@ -1,6 +1,7 @@
 import { PostService } from './../../services/post.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-post-form',
@@ -11,7 +12,15 @@ export class PostFormComponent implements OnInit {
 
   postForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private postService: PostService) { }
+  socketHost: any;
+
+  socket: any;
+
+  constructor(private fb: FormBuilder, private postService: PostService) {
+    this.socketHost = 'http://localhost:3000';
+
+    this.socket = io(this.socketHost);
+  }
 
   ngOnInit() {
     this.init();
