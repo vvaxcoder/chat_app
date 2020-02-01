@@ -2,6 +2,7 @@ const Joi = require("@hapi/joi");
 const HttpStatus = require("http-status-codes");
 
 const Post = require("../models/postModel");
+const User = require("../models/userModel");
 
 module.exports = {
   addPost(req, resp) {
@@ -18,16 +19,25 @@ module.exports = {
     }
 
     const body = {
-        user: req.user._id,
-        username: req.user.username,
-        post: req.user.post,
-        created: new Date()
+      user: req.user._id,
+      username: req.user.username,
+      post: req.user.post,
+      created: new Date()
     };
 
-    Post.create(body).then(post => {
-        resp.status(HttpStatus.OK).json({ message: 'Post created', post });
-    }).catch(err => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured' });
-    });
+    Post.create(body)
+      .then(async post => {
+        await User.updateOne(
+          { _id: req.user._id },
+          { $push: { posts: { postId: post._id, post: req.body.post, created: new Date() } } }
+        );
+
+        resp.status(HttpStatus.OK).json({ message: "Post created", post });
+      })
+      .catch(err => {
+        resp
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: "Error occured" });
+      });
   }
 };

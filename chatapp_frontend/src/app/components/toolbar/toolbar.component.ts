@@ -9,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
+  user: any;
+
   constructor(private tokenService: TokenService, private router: Router) { }
 
   ngOnInit() {
+    this.user = this.tokenService.getPayload();
   }
 
   logout() {

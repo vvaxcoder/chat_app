@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
     },
     posts: [
         {
-            postId: { type: mongoose.SchemaType.ObjectId, ref: 'Post' },
+            postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
             post: { type: String },
             created: { type: Date, default: Date.now() }
         }
