@@ -39,5 +39,15 @@ module.exports = {
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: "Error occured" });
       });
+  },
+
+  async getAllPosts(req, resp) {
+    try {
+      const posts = await Post.find({}).populate('user').sort({ created: -1 });
+
+      return resp.status(HttpStatus.OK).json({ message: 'All posts', posts });
+    } catch (error) {
+      return resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured' });
+    }
   }
 };
