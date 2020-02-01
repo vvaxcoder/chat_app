@@ -47,6 +47,8 @@ app.use((req, resp, next) => {
   next();
 });
 
+require('./sockets/streams')(io);
+
 const auth = require("./routes/authRoutes");
 const posts = require("./routes/postRoutes");
 
