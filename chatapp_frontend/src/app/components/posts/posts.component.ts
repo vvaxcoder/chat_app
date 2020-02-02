@@ -40,4 +40,12 @@ export class PostsComponent implements OnInit {
   timeFromNow(time) {
     return moment(time).fromNow();
   }
+
+  postLikeHandler(post) {
+    this.postService.addLike(post).subscribe(data => {
+      console.log(data);
+
+      this.socket.emit('refresh', {});
+    }, error => console.log(error));
+  }
 }

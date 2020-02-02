@@ -22,7 +22,7 @@
           <p>{{ post.post }}</p>
         </div>
         <div class="card-action">
-            <i class="material-icons">thumb_up</i>
+            <i (click)="postLikeHandler(post)" class="material-icons">thumb_up</i>
             <span class="isonSpan">{{ post.totalLike }}</span>
             <i class="material-icons">chat</i>
             <span class="isonSpan">{{ post.comments.length }}</span>
