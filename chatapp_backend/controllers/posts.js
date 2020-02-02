@@ -21,7 +21,7 @@ module.exports = {
     const body = {
       user: req.user._id,
       username: req.user.username,
-      post: req.user.post,
+      post: post,
       created: new Date()
     };
 

@@ -1,6 +1,7 @@
 import { PostService } from './../../services/post.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-posts',
@@ -11,12 +12,24 @@ export class PostsComponent implements OnInit {
 
   posts = [];
 
-  constructor(private postService: PostService) { }
+  socketHost: any;
+
+  socket: any;
+
+  constructor(private postService: PostService) {
+    this.socketHost = 'http://localhost:3000';
+
+    this.socket = io(this.socketHost);
+  }
 
   ngOnInit() {
     this.allPosts();
+
+    this.socket.on('refreshPage', data => {
+      this.allPosts();
+    });
   }
-  
+
   allPosts() {
     this.postService.getAllPosts().subscribe(data => {
       console.log(data);
