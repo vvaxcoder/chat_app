@@ -10,4 +10,6 @@ router.post('/post/add-post', authHelper.verifyToken, PostsController.addPost);
 
 router.post('/post/add-like', authHelper.verifyToken, PostsController.addLike);
 
+router.post('/post/add-comment', authHelper.verifyToken, PostsController.addComment);
+
 module.exports = router;

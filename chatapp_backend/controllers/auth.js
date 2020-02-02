@@ -65,7 +65,7 @@ module.exports = {
       User.create(body)
         .then(user => {
           const token = jwt.sign({ user }, secret, {
-            expiresIn: '1h'
+            expiresIn: '2h'
           });
 
           resp.cookie('auth', token);

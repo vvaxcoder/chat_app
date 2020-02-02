@@ -19,6 +19,10 @@ export class PostService {
     return this.http.post(`${BASEURL}/post/add-like`, id);
   }
 
+  addComment(postId, comment): Observable<any> {
+    return this.http.post(`${BASEURL}/post/add-comment`, { postId, comment });
+  }
+
   getAllPosts(): Observable<any> {
     return this.http.get(`${BASEURL}/posts`);
   }
