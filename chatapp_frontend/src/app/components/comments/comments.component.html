@@ -18,13 +18,24 @@
                     class="materialize-textarea"
                   ></textarea>
 
-                  <button class="btn postBtn">Add comment</button>
+                  <button class="btn postBtn" [disabled]="!commentForm.valid">
+                    Add comment
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+
+      <ul class="collection  col s12 m10" *ngFor="let comment of commentsArray">
+        <li class="collection-item avatar">
+          <img class="circle" src="http://placehold.it/50x50" alt="Image" />
+          <span class="title">{{ comment.username }}</span>
+          <p class="time">{{ timeFromNow(comment.createdAt) }}</p>
+          <p class="postComment">{{ comment.comment }}</p>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

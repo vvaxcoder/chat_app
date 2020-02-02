@@ -102,5 +102,13 @@ module.exports = {
     ).then(() => {
       resp.status(HttpStatus.OK).json({ message: 'Comment added' });
     }).catch(error => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured' }));
+  },
+
+  async getPost(req, resp) {
+    await Post.findOne({ _id: req.params.id }).populate('user').populate('userId')
+    .then(post => {
+      resp.status(HttpStatus.OK).json({ message: 'Post found', post });
+    })
+    .catch(err => resp.status(HttpStatus.NOT_FOUND).json({ message: 'Post not found', post }));
   }
 };

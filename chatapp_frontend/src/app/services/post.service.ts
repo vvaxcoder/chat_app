@@ -26,4 +26,8 @@ export class PostService {
   getAllPosts(): Observable<any> {
     return this.http.get(`${BASEURL}/posts`);
   }
+
+  getPost(id): Observable<any> {
+    return this.http.get(`${BASEURL}/post/${id}`);
+  }
 }
