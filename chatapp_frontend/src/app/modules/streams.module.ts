@@ -1,3 +1,4 @@
+import { CommentsComponent } from './../components/comments/comments.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from './../services/post.service';
@@ -11,7 +12,8 @@ import { PostFormComponent } from '../components/post-form/post-form.component';
 import { PostsComponent } from '../components/posts/posts.component';
 
 @NgModule({
-  declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostFormComponent, PostsComponent],
+  declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostFormComponent,
+     PostsComponent, CommentsComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { TokenService } from './../../services/token.service';
 import { PostService } from './../../services/post.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,7 +21,8 @@ export class PostsComponent implements OnInit {
 
   user: any;
 
-  constructor(private postService: PostService, private tokenService: TokenService) {
+  constructor(private postService: PostService, private tokenService: TokenService,
+     private router: Router) {
     this.socketHost = 'http://localhost:3000';
 
     this.socket = io(this.socketHost);
@@ -28,7 +30,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.tokenService.getPayload();
-    
+
     this.allPosts();
 
     this.socket.on('refreshPage', data => {
@@ -49,13 +51,15 @@ export class PostsComponent implements OnInit {
 
   postLikeHandler(post) {
     this.postService.addLike(post).subscribe(data => {
-      console.log(data);
-
       this.socket.emit('refresh', {});
     }, error => console.log(error));
   }
 
   checkUserInLikes(arr, username) {
     return _.some(arr, { username: username });
+  }
+
+  openCommentBox(post) {
+    this.router.navigate(['post', post._id]);
   }
 }
