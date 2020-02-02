@@ -66,7 +66,7 @@ module.exports = {
   async addLike(req, resp) {
     const post_id = req.body._id;
 
-    await Post.update(
+    await Post.updateOne(
       { _id: post_id,
       'likes.username': { $ne: req.user.username } },
       {
