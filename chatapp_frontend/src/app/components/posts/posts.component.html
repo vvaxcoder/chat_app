@@ -24,7 +24,7 @@
         <div class="card-action">
             <i (click)="postLikeHandler(post)" [ngClass]="(!checkUserInLikes(post.likes, user.username)) ? 'notLiked' : 'liked'" class="material-icons">thumb_up</i>
             <span class="isonSpan">{{ post.totalLike }}</span>
-            <i class="material-icons" (click)="openCommentBox(post)">chat</i>
+            <i class="material-icons" [ngClass]="(!checkUserInLikes(post.comments, user.username)) ? 'notLiked' : 'liked'" (click)="openCommentBox(post)">chat</i>
             <span class="isonSpan">{{ post.comments.length }}</span>
         </div>
       </div>

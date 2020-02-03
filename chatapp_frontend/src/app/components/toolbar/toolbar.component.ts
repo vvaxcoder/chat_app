@@ -23,4 +23,8 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  goToHome() {
+    this.router.navigate(['streams']);
+  }
+
 }
