@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { CommentsComponent } from './../components/comments/comments.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,15 +11,17 @@ import { CommonModule } from '@angular/common';
 import { SideComponent } from '../components/side/side.component';
 import { PostFormComponent } from '../components/post-form/post-form.component';
 import { PostsComponent } from '../components/posts/posts.component';
+import { PeopleComponent } from '../components/people/people.component';
 
 @NgModule({
   declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostFormComponent,
-     PostsComponent, CommentsComponent],
+     PostsComponent, CommentsComponent, PeopleComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   exports: [StreamsComponent, ToolbarComponent],
   providers: [TokenService, PostService]

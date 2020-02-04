@@ -1,11 +1,33 @@
 a {
-    color: black;
+  color: black;
 }
 
 .active a {
-    color: #fff !important;
+  color: #fff !important;
 }
 
 .active {
-    background-color: #64b5f6 !important;
+  background-color: #64b5f6 !important;
+}
+
+.material-icons {
+  color: #64b5f6;
+}
+
+.material-icons.active {
+  color: #fff;
+}
+
+.row span {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.num {
+  font-size: 16px;
+  font-weight: bold;
+
+  margin: 0 !important;
+
+  color: #fff;
 }
