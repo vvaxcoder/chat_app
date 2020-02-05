@@ -40,7 +40,6 @@ export class PostsComponent implements OnInit {
 
   allPosts() {
     this.postService.getAllPosts().subscribe(data => {
-      console.log(data);
       this.posts = data.posts;
     }, err => {
       if (err.error.token === null) {

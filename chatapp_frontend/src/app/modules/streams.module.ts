@@ -1,3 +1,4 @@
+import { UsersService } from './../services/users.service';
 import { RouterModule } from '@angular/router';
 import { CommentsComponent } from './../components/comments/comments.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +25,6 @@ import { PeopleComponent } from '../components/people/people.component';
     RouterModule
   ],
   exports: [StreamsComponent, ToolbarComponent],
-  providers: [TokenService, PostService]
+  providers: [TokenService, PostService, UsersService]
 })
 export class StreamsModule { }
