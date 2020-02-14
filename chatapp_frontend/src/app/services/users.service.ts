@@ -15,8 +15,12 @@ export class UsersService {
     return this.http.get(`${BASEURL}/users`);
   }
 
-  //the same, but without use of Observable
+  // the same, but without use of Observable
   // async getAllUsers() {
   //   return await this.http.get(`${BASEURL}/users`);
   // }
+
+  followUser(userFollower): Observable<any> {
+    return this.http.post(`${BASEURL}/follow-user`, { userFollower });
+  }
 }

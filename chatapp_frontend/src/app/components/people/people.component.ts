@@ -1,5 +1,5 @@
 import { UsersService } from './../../services/users.service';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ɵConsole} from '@angular/core';
 import _ from 'lodash';
 import { TokenService } from '../../services/token.service';
 
@@ -27,6 +27,12 @@ export class PeopleComponent implements OnInit {
       _.remove(data.result, { username: this.loggedInUser.username });
 
       this.users = data.result;
+    });
+  }
+
+  followUser(user) {
+    this.usersService.followUser(user._id).subscribe(data => {
+
     });
   }
 }
