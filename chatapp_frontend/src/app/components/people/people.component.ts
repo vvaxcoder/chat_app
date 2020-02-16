@@ -2,6 +2,7 @@ import { UsersService } from './../../services/users.service';
 import {Component, OnInit, ɵConsole} from '@angular/core';
 import _ from 'lodash';
 import { TokenService } from '../../services/token.service';
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-people',
@@ -16,7 +17,15 @@ export class PeopleComponent implements OnInit {
 
   userArray = [];
 
-  constructor(private usersService: UsersService, private tokenService: TokenService) { }
+  socketHost: any;
+
+  socket: any;
+
+  constructor(private usersService: UsersService, private tokenService: TokenService) {
+    this.socketHost = 'http://localhost:3000';
+
+    this.socket = io(this.socketHost);
+   }
 
   ngOnInit() {
     this.loggedInUser = this.tokenService.getPayload();
@@ -24,6 +33,12 @@ export class PeopleComponent implements OnInit {
     this.getUsers();
 
     this.getUser();
+
+    this.socket.on('refreshPage', () => {
+      this.getUsers();
+
+      this.getUser();
+    });
   }
 
   getUsers() {
@@ -42,7 +57,7 @@ export class PeopleComponent implements OnInit {
 
   followUser(user) {
     this.usersService.followUser(user._id).subscribe(data => {
-      console.log(data);
+      this.socket.emit('refresh', {});
     });
   }
 

@@ -27,7 +27,7 @@ export class CommentsComponent implements OnInit, AfterViewInit {
   post: string;
 
   constructor(private fb: FormBuilder, private postService: PostService,
-    private route: ActivatedRoute) {
+              private route: ActivatedRoute) {
     this.socketHost = 'http://localhost:3000';
 
     this.socket = io(this.socketHost);
@@ -42,7 +42,7 @@ export class CommentsComponent implements OnInit, AfterViewInit {
 
     this.getPost();
 
-    this.socket.on('refreshPage', data => { this.getPost() });
+    this.socket.on('refreshPage', data => { this.getPost(); });
   }
 
   init() {
@@ -66,7 +66,7 @@ export class CommentsComponent implements OnInit, AfterViewInit {
   getPost() {
     this.postService.getPost(this.postId).subscribe(data => {
       this.post = data.post.post;
-      
+
       this.commentsArray = data.post.comments.reverse();
     });
   }
