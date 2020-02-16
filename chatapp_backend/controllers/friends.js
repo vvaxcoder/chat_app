@@ -33,5 +33,35 @@ module.exports = {
       .catch(err => {
         resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in followUser method' });
       });
+  },
+
+  unfollowUser(req, resp) {
+    const unfollowUser = async () => {
+      await User.updateMany({
+        _id: req.user._id },
+        { $pull: {
+          following: {
+            userFollower: req.body.userFollower
+          }
+        }
+      });
+
+      await User.updateOne({
+        _id: req.body.userFollower },
+        { $pull: {
+          followers: {
+            follower: req.user._id
+          }
+        }
+      });
+    };
+
+    unfollowUser()
+      .then(() => {
+        resp.status(HttpStatus.OK).json({ message: 'Unfollowing user' });
+      })
+      .catch(err => {
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in unfollowUser method' });
+      });
   }
 };

@@ -5,7 +5,7 @@ const HttpStatus = require('http-status-codes');
 module.exports = {
   async getAllUsers(req, resp) {
     await User.find({}).populate('posts.postId')
-      .populate('following.userFollowed')
+      .populate('following.userFollower')
       .populate('followers.follower')
       .then(result => {
         resp.status(HttpStatus.OK).json({message: 'All users', result})
@@ -14,7 +14,7 @@ module.exports = {
   },
   async getUserById(req, resp) {
     await User.findOne({_id: req.params.id}).populate('posts.postId')
-      .populate('following.userFollowed')
+      .populate('following.userFollower')
       .populate('followers.follower')
       .then(result => {
         resp.status(HttpStatus.OK).json({message: 'Get user by id', result})
@@ -23,7 +23,7 @@ module.exports = {
   },
   async getUserByUsername(req, resp) {
     await User.findOne({username: req.params.username}).populate('posts.postId')
-      .populate('following.userFollowed')
+      .populate('following.userFollower')
       .populate('followers.follower')
       .then(result => {
         resp.status(HttpStatus.OK).json({message: 'Get user by username', result})

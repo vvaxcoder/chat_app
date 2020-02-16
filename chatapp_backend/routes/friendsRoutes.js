@@ -8,4 +8,6 @@ const authHelper = require('../helpers/authHelper');
 
 router.post('/follow-user', authHelper.verifyToken, FriendsController.followUser);
 
+router.post('/unfollow-user', authHelper.verifyToken, FriendsController.unfollowUser);
+
 module.exports = router;
