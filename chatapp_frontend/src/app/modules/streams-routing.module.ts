@@ -1,3 +1,4 @@
+import { FollowersComponent } from './../components/followers/followers.component';
 import { FollowingComponent } from './../components/following/following.component';
 import { PeopleComponent } from './../components/people/people.component';
 import { AuthGuard } from './../services/auth.guard';
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'people/following',
     component: FollowingComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'people/followers',
+    component: FollowersComponent,
     canActivate: [AuthGuard]
   },
 ];

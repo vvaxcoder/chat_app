@@ -14,10 +14,11 @@ import { PostFormComponent } from '../components/post-form/post-form.component';
 import { PostsComponent } from '../components/posts/posts.component';
 import { PeopleComponent } from '../components/people/people.component';
 import { FollowingComponent } from '../components/following/following.component';
+import { FollowersComponent } from '../components/followers/followers.component';
 
 @NgModule({
   declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostFormComponent,
-     PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent],
+     PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent],
   imports: [
     CommonModule,
     FormsModule,
