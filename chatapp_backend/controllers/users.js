@@ -4,7 +4,7 @@ const HttpStatus = require('http-status-codes');
 
 module.exports = {
   async getAllUsers(req, resp) {
-    await User.findMany({}).populate('posts.postId')
+    await User.find({}).populate('posts.postId')
       .populate('following.userFollowed')
       .populate('followers.follower')
       .then(result => {
@@ -12,7 +12,7 @@ module.exports = {
       })
       .catch(err => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: 'Error occurred'}));
   },
-  async getUser(req, resp) {
+  async getUserById(req, resp) {
     await User.findOne({_id: req.params.id}).populate('posts.postId')
       .populate('following.userFollowed')
       .populate('followers.follower')

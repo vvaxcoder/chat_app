@@ -15,6 +15,14 @@ export class UsersService {
     return this.http.get(`${BASEURL}/users`);
   }
 
+  getUserById(id): Observable<any> {
+    return this.http.get(`${BASEURL}/users/${id}`);
+  }
+
+  getUserByUsername(username): Observable<any> {
+    return this.http.get(`${BASEURL}/users/${username}`);
+  }
+
   // the same, but without use of Observable
   // async getAllUsers() {
   //   return await this.http.get(`${BASEURL}/users`);

@@ -5,20 +5,20 @@ const HttpStatus = require("http-status-codes");
 module.exports = {
   followUser(req, resp) {
     const followUser = async () => {
-      await User.updateOne({
+      await User.updateMany({
         _id: req.user._id,
-        "following.userFollowed": { $ne: req.body.userFollowed },
-        $push: {
+        "following.userFollower": { $ne: req.body.userFollower } },
+        { $push: {
           following: {
-            userFollowed: req.body.userFollowed
+            userFollower: req.body.userFollower
           }
         }
       });
 
       await User.updateOne({
-        _id: req.body.userFollowed,
-        "following.follower": { $ne: req.user._id },
-        $push: {
+        _id: req.body.userFollower,
+        "followers.follower": { $ne: req.user._id } },
+        { $push: {
           followers: {
             follower: req.user._id
           }
@@ -31,7 +31,7 @@ module.exports = {
         resp.status(HttpStatus.OK).json({ message: 'Following user now' });
       })
       .catch(err => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in followUser method' });
       });
   }
 };

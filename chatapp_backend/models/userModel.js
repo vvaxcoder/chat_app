@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
     ],
     following: [
       {
-        userFollowed: {
+        userFollower: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'
         }
