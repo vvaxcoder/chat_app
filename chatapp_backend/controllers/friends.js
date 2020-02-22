@@ -51,6 +51,12 @@ module.exports = {
         { $pull: {
           followers: {
             follower: req.user._id
+          },
+          notifications: {
+            senderId: req.user._id,
+            message: `${trq.user.username} is now following you`,
+            created: new Date(),
+            viewProfile: false
           }
         }
       });
