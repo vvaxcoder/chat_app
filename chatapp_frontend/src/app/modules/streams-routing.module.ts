@@ -6,6 +6,7 @@ import { StreamsComponent } from './../components/streams/streams.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommentsComponent } from '../components/comments/comments.component';
+import { NotificationsComponent } from '../components/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
   {
     path: 'people/followers',
     component: FollowersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'notifications',
+    component: NotificationsComponent,
     canActivate: [AuthGuard]
   },
 ];

@@ -25,7 +25,11 @@
 </div>
 
 <ul class="collection with-header">
-  <li class="collection-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+  <li
+    class="collection-item"
+    [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
     <a [routerLink]="['/streams']">
       <div>
         Streams<a href="#!" class="secondary-content"
@@ -34,7 +38,11 @@
       </div>
     </a>
   </li>
-  <li class="collection-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+  <li
+    class="collection-item"
+    [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
     <a [routerLink]="['/people']">
       <div>
         People<a href="#!" class="secondary-content"
@@ -43,7 +51,11 @@
       </div>
     </a>
   </li>
-  <li class="collection-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+  <li
+    class="collection-item"
+    [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
     <a [routerLink]="['/people', 'following']">
       <div>
         Following<a href="#!" class="secondary-content"
@@ -52,7 +64,11 @@
       </div>
     </a>
   </li>
-  <li class="collection-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+  <li
+    class="collection-item"
+    [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
     <a [routerLink]="['/people', 'followers']">
       <div>
         Followers<a href="#!" class="secondary-content"
@@ -68,11 +84,17 @@
       >
     </div>
   </li>
-  <li class="collection-item">
-    <div>
-      Notifications<a href="#!" class="secondary-content"
-        ><i class="material-icons">alarm</i></a
-      >
-    </div>
+  <li
+    class="collection-item"
+    [routerLinkActive]="['active']"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    <a [routerLink]="['/notifications']">
+      <div>
+        Notifications<a href="#!" class="secondary-content"
+          ><i class="material-icons">alarm</i></a
+        >
+      </div>
+    </a>
   </li>
 </ul>

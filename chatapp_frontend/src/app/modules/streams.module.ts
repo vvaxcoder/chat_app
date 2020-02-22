@@ -15,10 +15,11 @@ import { PostsComponent } from '../components/posts/posts.component';
 import { PeopleComponent } from '../components/people/people.component';
 import { FollowingComponent } from '../components/following/following.component';
 import { FollowersComponent } from '../components/followers/followers.component';
+import { NotificationsComponent } from '../components/notifications/notifications.component';
 
 @NgModule({
   declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostFormComponent,
-     PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent],
+    PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationsComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { TokenService } from 'src/app/services/token.service';
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-followers',
@@ -13,7 +14,15 @@ export class FollowersComponent implements OnInit {
 
   user: any;
 
-  constructor(private usersService: UsersService, private tokenService: TokenService) { }
+  socketHost: any;
+
+  socket: any;
+
+  constructor(private usersService: UsersService, private tokenService: TokenService) {
+    this.socketHost = 'http://localhost:3000';
+
+    this.socket = io(this.socketHost);
+   }
 
   ngOnInit() {
     this.user = this.tokenService.getPayload();

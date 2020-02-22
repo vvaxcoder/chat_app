@@ -22,7 +22,7 @@ export class PostsComponent implements OnInit {
   user: any;
 
   constructor(private postService: PostService, private tokenService: TokenService,
-    private router: Router) {
+              private router: Router) {
     this.socketHost = 'http://localhost:3000';
 
     this.socket = io(this.socketHost);
