@@ -15,7 +15,7 @@ module.exports = {
         }
       });
 
-      await User.updateOne({
+      await User.updateMany({
         _id: req.body.userFollower,
         "followers.follower": { $ne: req.user._id } },
         { $push: {
@@ -46,7 +46,7 @@ module.exports = {
         }
       });
 
-      await User.updateOne({
+      await User.updateMany({
         _id: req.body.userFollower },
         { $pull: {
           followers: {
@@ -69,5 +69,9 @@ module.exports = {
       .catch(err => {
         resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in unfollowUser method' });
       });
+  },
+
+  markNotification(req, resp) {
+    
   }
 };

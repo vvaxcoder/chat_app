@@ -10,4 +10,6 @@ router.post('/follow-user', authHelper.verifyToken, FriendsController.followUser
 
 router.post('/unfollow-user', authHelper.verifyToken, FriendsController.unfollowUser);
 
+router.post('/mark/:id', authHelper.verifyToken, FriendsController.markNotification);
+
 module.exports = router;

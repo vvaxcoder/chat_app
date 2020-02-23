@@ -38,7 +38,6 @@ export class FollowingComponent implements OnInit {
 
   unfollowUser(user) {
     this.usersService.unfollowUser(user._id).subscribe(data => {
-
       this.socket.emit('refresh', {});
     });
   }

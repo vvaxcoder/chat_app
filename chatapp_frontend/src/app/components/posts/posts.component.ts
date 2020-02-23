@@ -61,7 +61,7 @@ export class PostsComponent implements OnInit {
   }
 
   checkUserInLikes(arr, username) {
-    return _.some(arr, { username: username });
+    return _.some(arr, { username });
   }
 
   openCommentBox(post) {

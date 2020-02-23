@@ -7,16 +7,28 @@
     </div>
 
     <div class="col s12 m8 l9">
-      <ul class="collection col s12 m10">
-        <li class="collection-item avatar">
+      <ul class="collection col s12 m10" *ngIf="notifications.length > 0" >
+        <li class="collection-item avatar" *ngFor="let item of notifications">
           <img class="circle" src="http://placehold.it/50x50" alt="">
-          <span class="title">This is a message</span>
+          <span class="title">{{ item.message }}</span>
           <a class="secondary-content">
             <i class="material-icons">brightness_1</i>
           </a>
-          <p class="time">Date:</p>
+
+          <p class="time">{{ timeFromNow(item.created) }}</p>
+
+          <div>
+            <i class="material-icons" (click)="markNotification(data)">check</i>
+
+            <i class="material-icons" (click)="deleteForever(data)">delete_forever</i>
+          </div>
         </li>
       </ul>
+    </div>
+    <div class="row">
+      <h3 class="text" *ngIf="notifications.length <= 0">
+        You have no notifications
+      </h3>
     </div>
   </div>
 </div>

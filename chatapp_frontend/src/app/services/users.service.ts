@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   getUserByUsername(username): Observable<any> {
-    return this.http.get(`${BASEURL}/users/${username}`);
+    return this.http.get(`${BASEURL}/usersby/${username}`);
   }
 
   // the same, but without use of Observable
@@ -34,5 +34,9 @@ export class UsersService {
 
   unfollowUser(userFollower): Observable<any> {
     return this.http.post(`${BASEURL}/unfollow-user`, { userFollower });
+  }
+
+  markNotification(id, isDelete?): Observable<any> {
+    return this.http.post(`${BASEURL}/mark/${id}`, { id, isDelete });
   }
 }
