@@ -54,7 +54,7 @@ module.exports = {
           },
           notifications: {
             senderId: req.user._id,
-            message: `${trq.user.username} is now following you`,
+            message: `${req.user.username} is now following you`,
             created: new Date(),
             viewProfile: false
           }
@@ -71,7 +71,38 @@ module.exports = {
       });
   },
 
-  markNotification(req, resp) {
-    
+  async markNotification(req, resp) {
+    if(!req.body.isDelete) {
+      await User.updateOne({
+        _id: req.user._id,
+        'notifications._id': req.params.id
+      }, {
+        $set: {
+          'notifications.$.read': true
+        }
+      }).then(() => {
+        resp.status(HttpStatus.OK).json({ message: 'Marked as read' });
+      }).catch(error => {
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markNoification' });
+      });
+    }
+    else {
+      await User.update({
+        _id : req.user._id,
+        'notifications._id': req.params.id
+      },
+      {
+        $pull: {
+          notifications: {
+            _id: req.params.id
+          }
+        }
+      })
+      .then(() => {
+        resp.status(HttpStatus.OK).json({ message: 'Deleted successfully' });
+      }).catch(error => {
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markNoification' });
+      });
+    }
   }
 };
