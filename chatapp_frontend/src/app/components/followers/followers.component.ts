@@ -9,7 +9,6 @@ import io from 'socket.io-client';
   styleUrls: ['./followers.component.scss']
 })
 export class FollowersComponent implements OnInit {
-
   followers = [];
 
   user: any;

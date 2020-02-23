@@ -31,6 +31,6 @@ export class TokenService {
       payload = JSON.parse(window.atob(payload));
     }
 
-    return payload.data;
+    return payload.user;
   }
 }

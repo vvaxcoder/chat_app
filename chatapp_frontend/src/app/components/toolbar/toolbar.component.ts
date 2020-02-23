@@ -15,6 +15,7 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.tokenService.getPayload();
+    console.log(this.user);
   }
 
   logout() {
