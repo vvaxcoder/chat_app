@@ -12,4 +12,6 @@ router.post('/unfollow-user', authHelper.verifyToken, FriendsController.unfollow
 
 router.post('/mark/:id', authHelper.verifyToken, FriendsController.markNotification);
 
+router.post('/mark-all', authHelper.verifyToken, FriendsController.markAllNotifications);
+
 module.exports = router;

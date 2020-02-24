@@ -3,6 +3,9 @@ import { TokenService } from './../../services/token.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import * as M from 'materialize-css';
+import * as moment from 'moment';
+import io from 'socket.io-client';
+import _ from 'lodash/collection';
 
 @Component({
   selector: 'app-toolbar',
@@ -15,7 +18,17 @@ export class ToolbarComponent implements OnInit {
 
   notifications = [];
 
-  constructor(private tokenService: TokenService, private router: Router, private usersService: UsersService) { }
+  socketHost: any;
+
+  socket: any;
+
+  count = [];
+
+  constructor(private tokenService: TokenService, private router: Router, private usersService: UsersService) {
+    this.socketHost = 'http://localhost:3000';
+
+    this.socket = io(this.socketHost);
+   }
 
   ngOnInit() {
     this.user = this.tokenService.getPayload();
@@ -29,9 +42,13 @@ export class ToolbarComponent implements OnInit {
     });
 
     this.getUser();
+
+    this.socket.on('refreshPage', () => {
+      this.getUser();
+    });
   }
 
-  logout() {
+  logout(event: MouseEvent) {
     this.tokenService.deleteToken();
 
     this.router.navigate(['']);
@@ -44,7 +61,22 @@ export class ToolbarComponent implements OnInit {
   getUser() {
     this.usersService.getUserById(this.user._id).subscribe(data => {
       this.notifications = data.result.notifications.reverse();
+
+      const value = _.filter(this.notifications, ['read', false]);
+
+      this.count = value;
     });
   }
 
+  timeFromNow(time) {
+    return moment(time).fromNow();
+  }
+
+  markAll(event: MouseEvent) {
+    this.usersService.markAllAsRead().subscribe(data => {
+      console.log(data);
+
+      this.socket.emit('refresh', {});
+    });
+  }
 }

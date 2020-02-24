@@ -5,7 +5,7 @@ const HttpStatus = require("http-status-codes");
 module.exports = {
   followUser(req, resp) {
     const followUser = async () => {
-      await User.updateMany({
+      await User.update({
         _id: req.user._id,
         "following.userFollower": { $ne: req.body.userFollower } },
         { $push: {
@@ -15,7 +15,7 @@ module.exports = {
         }
       });
 
-      await User.updateMany({
+      await User.update({
         _id: req.body.userFollower,
         "followers.follower": { $ne: req.user._id } },
         { $push: {
@@ -37,7 +37,7 @@ module.exports = {
 
   unfollowUser(req, resp) {
     const unfollowUser = async () => {
-      await User.updateMany({
+      await User.update({
         _id: req.user._id },
         { $pull: {
           following: {
@@ -46,7 +46,7 @@ module.exports = {
         }
       });
 
-      await User.updateMany({
+      await User.update({
         _id: req.body.userFollower },
         { $pull: {
           followers: {
@@ -104,5 +104,22 @@ module.exports = {
         resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markNoification' });
       });
     }
+  },
+
+  async markAllNotifications(req, resp) {
+    await User.update({
+      _id: req.user._id
+    }, {
+      $set: {
+        'notifications.$[elem].read': true
+      }
+    }, {
+      arrayFilters: [{ 'elem.read': false }], multi: true
+    })
+    .then(() => {
+      resp.status(HttpStatus.OK).json({ message: 'Marked all successfully' });
+    }).catch(error => {
+      resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markAllNoifications' });
+    });
   }
 };

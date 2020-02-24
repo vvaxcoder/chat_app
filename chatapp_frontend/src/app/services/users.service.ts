@@ -39,4 +39,8 @@ export class UsersService {
   markNotification(id, isDelete?): Observable<any> {
     return this.http.post(`${BASEURL}/mark/${id}`, { id, isDelete });
   }
+
+  markAllAsRead(): Observable<any> {
+    return this.http.post(`${BASEURL}/mark-all`, { all: true });
+  }
 }

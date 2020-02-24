@@ -1,6 +1,6 @@
 import { UsersService } from './../../services/users.service';
 import {Component, OnInit, ɵConsole} from '@angular/core';
-import _ from 'lodash';
+import _ from 'lodash/array';
 import { TokenService } from '../../services/token.service';
 import io from 'socket.io-client';
 
