@@ -10,6 +10,42 @@ const userSchema = mongoose.Schema({
     password: {
         type: String
     },
+    posts: [
+        {
+            postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
+            post: { type: String },
+            created: { type: Date, default: Date.now() }
+        }
+    ],
+    following: [
+      {
+        userFollower: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+        }
+      }
+    ],
+    followers: [
+      {
+        follower: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+        }
+      }
+    ],
+    notifications: [
+      {
+        senderId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+        },
+        message: { type: String },
+        viewProfile: { type: Boolean, default: false },
+        created: { type: Date, default: Date.now() },
+        read: { type: Boolean, default: false },
+        date: { type: String, default: '' }
+      }
+    ]
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { TokenService } from './../../services/token.service';
 import { Component, OnInit } from '@angular/core';
+import * as M from 'materialize-css';
 
 @Component({
   selector: 'app-streams',
@@ -11,18 +12,33 @@ export class StreamsComponent implements OnInit {
 
   token: any;
 
+  streamsTab = false;
+
+  topStreamsTab = false;
+
   constructor(private tokenService: TokenService, private router: Router) { }
 
   ngOnInit() {
-    this.token = this.tokenService.getToken();
+    this.topStreamsTab = true;
 
-    console.log(this.token);
+    this.token = this.tokenService.getPayload();
+
+    const tabs = document.querySelector('.tabs');
+
+    M.Tabs.init(tabs, {});
   }
 
-  logout() {
-    this.tokenService.deleteToken();
+  changeTabs(value) {
+    if (value === 'streams') {
+      this.streamsTab = true;
 
-    this.router.navigate(['']);
+      this.topStreamsTab = false;
+    }
+
+    if (value === 'top') {
+      this.streamsTab = false;
+
+      this.topStreamsTab = true;
+    }
   }
-
 }

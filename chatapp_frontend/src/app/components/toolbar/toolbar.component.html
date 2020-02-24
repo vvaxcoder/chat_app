@@ -1,0 +1,45 @@
+<nav class="nav-extended">
+  <div class="container">
+    <div class="nav-wrapper">
+      <a (click)="goToHome()" class="brand-logo">Chat App</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li class="dropdown-trigger dropdown-button" data-target="dropdown1">
+          <i class="fa fa-globe"></i>
+
+          <span class="nav-label-icon" *ngIf="count.length > 0">{{ count.length }}</span>
+
+          <ul id="dropdown1" class="dropdown-content col s12 collection">
+            <li class="collection-item avatar" *ngFor="let item of notifications">
+              <img class="circle" src="http://placehold.it/50x50" alt="image">
+
+              <span [ngClass]="item.read ? 'isRead' : 'unread'">{{ item.message }}</span>
+
+              <p class="time">{{ timeFromNow(item.created) }}</p>
+              </li>
+
+              <li *ngIf="notifications.length <= 0" >
+                <p class="text">No notifications</p>
+              </li>
+
+              <p class="secondary-content">
+                <a class="markAll btn" (click)="markAll($event)">Mark all as read</a>
+              </p>
+          </ul>
+        </li>
+
+        <li><a (click)="logout($event)">Logout</a></li>
+      </ul>
+    </div>
+    <div class="nav-content">
+      <div class="nav-div">
+        <img
+          src="http://placehold.it/50x50"
+          alt=""
+          class="circle responsive-mg"
+        />
+      </div>
+      <h1 class="profile-name">{{ user.username }}</h1>
+      <!-- <p class="user-text">This is a test</p> -->
+    </div>
+  </div>
+</nav>
