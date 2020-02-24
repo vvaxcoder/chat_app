@@ -55,7 +55,11 @@ module.exports = {
         .populate("user")
         .sort({ created: -1 });
 
-      return resp.status(HttpStatus.OK).json({ message: "All posts", posts });
+      const top = await Post.find({ totalLike: { $gte: 2 } })
+        .populate("user")
+        .sort({ created: -1 });
+
+      return resp.status(HttpStatus.OK).json({ message: "All posts", posts, top });
     } catch (error) {
       return resp
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -110,5 +114,5 @@ module.exports = {
       resp.status(HttpStatus.OK).json({ message: 'Post found', post });
     })
     .catch(err => resp.status(HttpStatus.NOT_FOUND).json({ message: 'Post not found', post }));
-  }
+  },
 };

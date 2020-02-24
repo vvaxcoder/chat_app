@@ -65,7 +65,14 @@ export class ToolbarComponent implements OnInit {
       const value = _.filter(this.notifications, ['read', false]);
 
       this.count = value;
-    });
+    },
+      err => {
+        if (err.error.token === null) {
+          this.tokenService.deleteToken();
+
+          this.router.navigate(['']);
+        }
+      });
   }
 
   timeFromNow(time) {

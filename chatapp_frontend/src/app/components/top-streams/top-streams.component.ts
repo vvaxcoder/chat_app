@@ -7,13 +7,12 @@ import io from 'socket.io-client';
 import _ from 'lodash/collection';
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss']
+  selector: 'app-top-streams',
+  templateUrl: './top-streams.component.html',
+  styleUrls: ['./top-streams.component.scss']
 })
-export class PostsComponent implements OnInit {
-
-  posts = [];
+export class TopStreamsComponent implements OnInit {
+  topPosts = [];
 
   socketHost: any;
 
@@ -40,7 +39,7 @@ export class PostsComponent implements OnInit {
 
   allPosts() {
     this.postService.getAllPosts().subscribe(data => {
-      this.posts = data.posts;
+      this.topPosts = data.top;
     }, err => {
       if (err.error.token === null) {
         this.tokenService.deleteToken();
