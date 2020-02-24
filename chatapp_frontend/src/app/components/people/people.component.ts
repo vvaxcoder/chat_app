@@ -1,6 +1,7 @@
 import { UsersService } from './../../services/users.service';
 import {Component, OnInit, ɵConsole} from '@angular/core';
-import _ from 'lodash/array';
+import _array from 'lodash/array';
+import _collection from 'lodash/collection';
 import { TokenService } from '../../services/token.service';
 import io from 'socket.io-client';
 
@@ -43,7 +44,7 @@ export class PeopleComponent implements OnInit {
 
   getUsers() {
     this.usersService.getAllUsers().subscribe(data => {
-      _.remove(data.result, { username: this.loggedInUser.username });
+      _array.remove(data.result, { username: this.loggedInUser.username });
 
       this.users = data.result;
     });
@@ -62,7 +63,7 @@ export class PeopleComponent implements OnInit {
   }
 
   checkInArray(arr, id) {
-    const result = _.find(arr, ['userFollower', id]);
+    const result = _collection.find(arr, ['userFollower', id]);
 
     if (result) {
       return true;
