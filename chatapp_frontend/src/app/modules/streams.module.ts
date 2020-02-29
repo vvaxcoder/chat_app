@@ -1,3 +1,4 @@
+import { MessageService } from './../services/message.service';
 import { UsersService } from './../services/users.service';
 import { RouterModule } from '@angular/router';
 import { CommentsComponent } from './../components/comments/comments.component';
@@ -22,7 +23,8 @@ import { MessageComponent } from '../components/message/message.component';
 
 @NgModule({
   declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostFormComponent,
-    PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent, NotificationsComponent, TopStreamsComponent, ChatComponent, MessageComponent],
+    PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent,
+    NotificationsComponent, TopStreamsComponent, ChatComponent, MessageComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -31,6 +33,6 @@ import { MessageComponent } from '../components/message/message.component';
     RouterModule
   ],
   exports: [StreamsComponent, ToolbarComponent],
-  providers: [TokenService, PostService, UsersService]
+  providers: [TokenService, PostService, UsersService, MessageService]
 })
 export class StreamsModule { }

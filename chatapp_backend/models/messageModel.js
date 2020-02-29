@@ -13,8 +13,8 @@ const MessageSchema = mongoose.Schema({
         receiverId: {
           type: mongoose.Schema.Types.ObjectId, ref: 'User'
         },
-        sendername: { type: String },
-        receivername: { type: String },
+        senderName: { type: String },
+        receiverName: { type: String },
         body: { type: String, default: '' },
         isRead: { type: Boolean, default: false },
         createdAt: { type: Date, default: Date.now() },
