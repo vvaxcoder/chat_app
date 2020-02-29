@@ -13,7 +13,11 @@ export class MessageService {
 
   sendMessage(senderId, receiverId, receiverName, message): Observable<any> {
     return this.http.post(`${BASEURL}/chat-messages/${senderId}/${receiverId}`, {
-      receiverId, receiverName
+      receiverId, receiverName, message
     });
+  }
+
+  getAllMessages(senderId, receiverId): Observable<any> {
+    return this.http.get(`${BASEURL}/chat-messages/${senderId}/${receiverId}`);
   }
 }
