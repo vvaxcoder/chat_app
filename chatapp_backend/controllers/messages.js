@@ -34,6 +34,7 @@ module.exports = {
     })
     .select('_id');
 
+
     if (conversation) {
       const messages = await Message.findOne({ conversationId: conversation._id });
 
@@ -90,7 +91,7 @@ module.exports = {
           const newConversation = new Conversation();
 
           newConversation.participants.push({
-            senderId: req.user._Id,
+            senderId: req.user._id,
             receiverId: req.params.receiver_Id
           });
 
@@ -121,9 +122,7 @@ module.exports = {
                 chatList: {
                   $each: [
                     {
-                      receiverId: req.params.receiver_Id
-                    },
-                    {
+                      receiverId: req.params.receiver_Id,
                       msgId: newMessage._id
                     }
                   ],
@@ -142,9 +141,7 @@ module.exports = {
                 chatList: {
                   $each: [
                     {
-                      receiverId: req.user._id
-                    },
-                    {
+                      receiverId: req.user._id,
                       msgId: newMessage._id
                     }
                   ],

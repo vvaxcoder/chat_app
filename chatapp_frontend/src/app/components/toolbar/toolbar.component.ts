@@ -6,6 +6,7 @@ import * as M from 'materialize-css';
 import * as moment from 'moment';
 import io from 'socket.io-client';
 import _ from 'lodash/collection';
+import _math from 'lodash/math';
 
 @Component({
   selector: 'app-toolbar',
@@ -24,6 +25,10 @@ export class ToolbarComponent implements OnInit {
 
   count = [];
 
+  chatList = [];
+
+  msgNumber = 0;
+
   constructor(private tokenService: TokenService, private router: Router, private usersService: UsersService) {
     this.socketHost = 'http://localhost:3000';
 
@@ -33,9 +38,17 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
     this.user = this.tokenService.getPayload();
 
-    const dropdownElement = document.querySelector('.dropdown-trigger');
+    const dropdownElement = document.querySelectorAll('.dropdown-trigger');
 
     M.Dropdown.init(dropdownElement, {
+      alignment: 'right',
+      hover: true,
+      coverTrigger: false
+    });
+
+    const dropdownElementTwo = document.querySelectorAll('.dropdown-trigger1');
+
+    M.Dropdown.init(dropdownElementTwo, {
       alignment: 'right',
       hover: true,
       coverTrigger: false
@@ -65,6 +78,13 @@ export class ToolbarComponent implements OnInit {
       const value = _.filter(this.notifications, ['read', false]);
 
       this.count = value;
+
+      this.chatList = data.result.chatList;
+
+      if (this.chatList.length) {
+        this.checkIfRead(this.chatList);
+      }
+
     },
       err => {
         if (err.error.token === null) {
@@ -81,9 +101,33 @@ export class ToolbarComponent implements OnInit {
 
   markAll(event: MouseEvent) {
     this.usersService.markAllAsRead().subscribe(data => {
-      console.log(data);
-
       this.socket.emit('refresh', {});
     });
+  }
+
+  messageDate(date) {
+    return moment(date).calendar(null, {
+      sameDay: '[Today]',
+      lastDay: '[Yesterday]',
+      lastWeek: 'DD/MM/YYYY',
+      sameElse: 'DD/MM/YYYY'
+    });
+  }
+
+  checkIfRead(arr) {
+    const checkArr = [];
+
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < arr.length; i++) {
+      const receiver = arr[i].msgId.message[arr[i].msgId.message.length - 1];
+
+      if (this.router.url !== `chat/${receiver.senderName}`) {
+        if (!receiver.isRead && receiver.receiverName === this.user.username) {
+          checkArr.push(1);
+
+          this.msgNumber = _math.sum(checkArr);
+        }
+      }
+    }
   }
 }

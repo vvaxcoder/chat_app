@@ -93,7 +93,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getMessages(senderId: string, receiverId: string) {
+  getMessages(senderId, receiverId) {
     this.messageService.getAllMessages(senderId, receiverId).subscribe(data => {
       this.messagesArray = data.messages.message;
     });

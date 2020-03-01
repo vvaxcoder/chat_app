@@ -7,6 +7,8 @@ module.exports = {
     await User.find({}).populate('posts.postId')
       .populate('following.userFollower')
       .populate('followers.follower')
+      .populate('chatList.receiverId')
+      .populate('chatList.msgId')
       .then(result => {
         resp.status(HttpStatus.OK).json({message: 'All users', result})
       })
@@ -16,6 +18,8 @@ module.exports = {
     await User.findOne({_id: req.params.id}).populate('posts.postId')
       .populate('following.userFollower')
       .populate('followers.follower')
+      .populate('chatList.receiverId')
+      .populate('chatList.msgId')
       .then(result => {
         resp.status(HttpStatus.OK).json({message: 'Get user by id', result})
       })
@@ -25,6 +29,8 @@ module.exports = {
     await User.findOne({username: req.params.username}).populate('posts.postId')
       .populate('following.userFollower')
       .populate('followers.follower')
+      .populate('chatList.receiverId')
+      .populate('chatList.msgId')
       .then(result => {
         resp.status(HttpStatus.OK).json({message: 'Get user by username', result})
       })
