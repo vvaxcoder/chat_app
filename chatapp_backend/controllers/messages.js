@@ -20,21 +20,19 @@ module.exports = {
             }
           ],
         },
-        // {
-        //   $and: [
-        //     {
-        //       'participants.senderId': receiver_Id
-        //     },
-        //     {
-        //       'participants.receiverId': sender_Id
-        //     }
-        //   ]
-        // }
+        {
+          $and: [
+            {
+              'participants.senderId': receiver_Id
+            },
+            {
+              'participants.receiverId': sender_Id
+            }
+          ]
+        }
       ]
     })
     .select('_id');
-
-    console.log(conversation);
 
     if (conversation) {
       const messages = await Message.findOne({ conversationId: conversation._id });
@@ -52,7 +50,9 @@ module.exports = {
           {
             participants: {
               $elemMatch: { senderId: sender_Id, receiverId: receiver_Id }
-            },
+            }
+          },
+          {
             participants: {
               $elemMatch: { senderId: receiver_Id, receiverId: sender_Id }
             }
