@@ -29,24 +29,6 @@ mongoose.connect(db_url, {
 
 app.use(cors());
 
-app.use((req, resp, next) => {
-  resp.header("Access-Control-Allow-Origin", "*");
-  resp.header("Access-Control-Allow-Credentials", "true");
-  resp.header(
-    "Access-Control-Allow-Methods",
-    "GET",
-    "POST",
-    "DELETE",
-    "PUT",
-    "OPTIONS"
-  );
-  resp.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  next();
-});
-
 require('./sockets/streams')(io);
 require('./sockets/private')(io);
 
@@ -55,6 +37,24 @@ const posts = require("./routes/postRoutes");
 const users = require("./routes/userRoutes");
 const friends = require("./routes/friendsRoutes");
 const messages = require("./routes/messageRoutes");
+
+// app.use((req, resp, next) => {
+//   resp.header("Access-Control-Allow-Origin", "*");
+//   resp.header("Access-Control-Allow-Credentials", "true");
+//   resp.header(
+//     "Access-Control-Allow-Methods",
+//     "GET",
+//     "POST",
+//     "DELETE",
+//     "PUT",
+//     "OPTIONS"
+//   );
+//   resp.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//   );
+//   next();
+// });
 
 app.use("/api/chatapp", auth);
 app.use("/api/chatapp", posts);

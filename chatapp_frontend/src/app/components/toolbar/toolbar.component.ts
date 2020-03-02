@@ -74,6 +74,7 @@ export class ToolbarComponent implements OnInit {
   getUser() {
     this.usersService.getUserById(this.user._id).subscribe(data => {
       this.notifications = data.result.notifications.reverse();
+      console.log(this.notifications);
 
       const value = _.filter(this.notifications, ['read', false]);
 

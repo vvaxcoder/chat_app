@@ -21,6 +21,7 @@ import { TopStreamsComponent } from '../components/top-streams/top-streams.compo
 import { ChatComponent } from '../components/chat/chat.component';
 import { MessageComponent } from '../components/message/message.component';
 import { NgxAutoScrollModule } from 'ngx-auto-scroll';
+import { EmojiPickerModule } from 'ng2-emoji-picker';
 
 @NgModule({
   declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostFormComponent,
@@ -32,7 +33,8 @@ import { NgxAutoScrollModule } from 'ngx-auto-scroll';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    NgxAutoScrollModule
+    NgxAutoScrollModule,
+    EmojiPickerModule.forRoot()
   ],
   exports: [StreamsComponent, ToolbarComponent],
   providers: [TokenService, PostService, UsersService, MessageService]
