@@ -5,6 +5,7 @@ const HttpStatus = require("http-status-codes");
 module.exports = {
   followUser(req, resp) {
     const followUser = async () => {
+      console.log(req.body);
       await User.update({
         _id: req.user._id,
         "following.userFollower": { $ne: req.body.userFollower } },

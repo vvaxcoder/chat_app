@@ -4,7 +4,8 @@ const HttpStatus = require('http-status-codes');
 
 module.exports = {
   async getAllUsers(req, resp) {
-    await User.find({}).populate('posts.postId')
+    await User.find({})
+      .populate('posts.postId')
       .populate('following.userFollower')
       .populate('followers.follower')
       .populate('chatList.receiverId')
@@ -14,19 +15,24 @@ module.exports = {
       })
       .catch(err => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: 'Error occurred'}));
   },
+
   async getUserById(req, resp) {
-    await User.findOne({_id: req.params.id}).populate('posts.postId')
+    await User.findOne({_id: req.params.id})
+      .populate('posts.postId')
       .populate('following.userFollower')
       .populate('followers.follower')
       .populate('chatList.receiverId')
       .populate('chatList.msgId')
       .then(result => {
+        console.log(result);
         resp.status(HttpStatus.OK).json({message: 'Get user by id', result})
       })
       .catch(err => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: 'Error occurred'}));
   },
+
   async getUserByUsername(req, resp) {
-    await User.findOne({username: req.params.username}).populate('posts.postId')
+    await User.findOne({username: req.params.username})
+      .populate('posts.postId')
       .populate('following.userFollower')
       .populate('followers.follower')
       .populate('chatList.receiverId')

@@ -63,7 +63,7 @@ export class PeopleComponent implements OnInit {
   }
 
   checkInArray(arr, id) {
-    const result = _collection.find(arr, ['userFollower', id]);
+    const result = _collection.find(arr, ['userFollower._id', id]);
 
     if (result) {
       return true;
