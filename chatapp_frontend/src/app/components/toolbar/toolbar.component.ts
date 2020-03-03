@@ -1,5 +1,6 @@
 import { UsersService } from './../../services/users.service';
 import { TokenService } from './../../services/token.service';
+import { MessageService } from './../../services/message.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import * as M from 'materialize-css';
@@ -29,7 +30,8 @@ export class ToolbarComponent implements OnInit {
 
   msgNumber = 0;
 
-  constructor(private tokenService: TokenService, private router: Router, private usersService: UsersService) {
+  constructor(private tokenService: TokenService, private router: Router, private usersService: UsersService,
+              private messageService: MessageService) {
     this.socketHost = 'http://localhost:3000';
 
     this.socket = io(this.socketHost);
@@ -130,5 +132,13 @@ export class ToolbarComponent implements OnInit {
         }
       }
     }
+  }
+
+  goToChatPage(name) {
+    this.router.navigate(['chat', name]);
+
+    this.messageService.markMessages(this.user.username, name).subscribe(data => {
+      this.socket.emit('refresh', {});
+    });
   }
 }

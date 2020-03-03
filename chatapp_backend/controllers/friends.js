@@ -31,7 +31,7 @@ module.exports = {
         resp.status(HttpStatus.OK).json({ message: 'Following user now' });
       })
       .catch(err => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in followUser method' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in followUser method' });
       });
   },
 
@@ -67,7 +67,7 @@ module.exports = {
         resp.status(HttpStatus.OK).json({ message: 'Unfollowing user' });
       })
       .catch(err => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in unfollowUser method' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in unfollowUser method' });
       });
   },
 
@@ -83,7 +83,7 @@ module.exports = {
       }).then(() => {
         resp.status(HttpStatus.OK).json({ message: 'Marked as read' });
       }).catch(error => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markNoification' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markNoification' });
       });
     }
     else {
@@ -101,7 +101,7 @@ module.exports = {
       .then(() => {
         resp.status(HttpStatus.OK).json({ message: 'Deleted successfully' });
       }).catch(error => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markNoification' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markNoification' });
       });
     }
   },
@@ -119,7 +119,7 @@ module.exports = {
     .then(() => {
       resp.status(HttpStatus.OK).json({ message: 'Marked all successfully' });
     }).catch(error => {
-      resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markAllNoifications' });
+      resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markAllNoifications' });
     });
   }
 };

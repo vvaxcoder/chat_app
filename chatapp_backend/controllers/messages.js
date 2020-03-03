@@ -7,7 +7,7 @@ const helpers = require("../helpers/transformCases");
 
 module.exports = {
   async getAllMessages(req, resp) {
-    const { sender_Id, receiver_Id } = req.params;
+    const {sender_Id, receiver_Id} = req.params;
 
     const conversation = await Conversation.findOne({
       $or: [
@@ -33,30 +33,30 @@ module.exports = {
         }
       ]
     })
-    .select('_id');
+      .select('_id');
 
 
     if (conversation) {
-      const messages = await Message.findOne({ conversationId: conversation._id });
+      const messages = await Message.findOne({conversationId: conversation._id});
 
-      resp.status(HttpStatus.OK).json({ message: "Messages returned", messages });
+      resp.status(HttpStatus.OK).json({message: "Messages returned", messages});
     }
   },
 
   async sendMessage(req, resp) {
-    const { sender_Id, receiver_Id } = req.params;
+    const {sender_Id, receiver_Id} = req.params;
 
     Conversation.find(
       {
         $or: [
           {
             participants: {
-              $elemMatch: { senderId: sender_Id, receiverId: receiver_Id }
+              $elemMatch: {senderId: sender_Id, receiverId: receiver_Id}
             }
           },
           {
             participants: {
-              $elemMatch: { senderId: receiver_Id, receiverId: sender_Id }
+              $elemMatch: {senderId: receiver_Id, receiverId: sender_Id}
             }
           }
         ]
@@ -82,18 +82,18 @@ module.exports = {
               }
             }
           })
-          .then(() =>
-              resp.status(HttpStatus.OK).json({ message: "Message sent successfully" })
+            .then(() =>
+              resp.status(HttpStatus.OK).json({message: "Message sent successfully"})
             )
             .catch(err =>
               resp
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .json({ message: "Error occure when message sent" })
+                .json({message: "Error occure when message sent"})
             );
         }
         /**
          * conversation just have been started between users, messages collection isn't presented yet
-        */
+         */
         else {
           const newConversation = new Conversation();
 
@@ -161,15 +161,53 @@ module.exports = {
           await newMessage
             .save()
             .then(() =>
-              resp.status(HttpStatus.OK).json({ message: "Message sent" })
+              resp.status(HttpStatus.OK).json({message: "Message sent"})
             )
             .catch(err =>
               resp
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .json({ message: "Error occure when message sent" })
+                .json({message: "Error occure when message sent"})
             );
         }
       }
     );
+  },
+
+  async markReceiverMessages(req, resp) {
+    const {sender, receiver} = req.params;
+
+    const msg = await Message.aggregate([
+      {$unwind: '$message'},
+      {
+        $match: {
+          $and: [
+            {
+              'message.senderName': receiver,
+              'message.receiverName': sender
+            }
+          ]
+        }
+      }
+    ]);
+
+    if (msg.length > 0) {
+      try {
+        msg.forEach(async item => {
+          await Message.updateOne({
+            'message._id': value.message._id
+          },
+            {
+              $set: {
+                'message.$.isRead': true
+              }
+            });
+        });
+
+        resp.status(HttpStatus.OK).json({ message: 'Messages marked in markReceiverMessages' });
+      }
+      catch (err) {
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markReceiverMessages' });
+      }
+    }
   }
 };

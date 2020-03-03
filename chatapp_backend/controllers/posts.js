@@ -45,7 +45,7 @@ module.exports = {
       .catch(err => {
         resp
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .json({ message: "Error occured" });
+          .json({ message: "Error occurred" });
       });
   },
 
@@ -63,7 +63,7 @@ module.exports = {
     } catch (error) {
       return resp
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .json({ message: "Error occured" });
+        .json({ message: "Error occurred" });
     }
   },
 
@@ -85,7 +85,7 @@ module.exports = {
       }
     ).then(() => {
       resp.status(HttpStatus.OK).json({ message: 'You liked the post' });
-    }).catch(error => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured' }));
+    }).catch(error => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred' }));
   },
 
   async addComment(req, resp) {
@@ -105,7 +105,7 @@ module.exports = {
       }
     ).then(() => {
       resp.status(HttpStatus.OK).json({ message: 'Comment added' });
-    }).catch(error => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured' }));
+    }).catch(error => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred' }));
   },
 
   async getPost(req, resp) {

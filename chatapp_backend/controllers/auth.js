@@ -80,7 +80,7 @@ module.exports = {
         .catch(err =>
           resp
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .json({ message: "Error occured" })
+            .json({ message: "Error occurred" })
         );
     });
   },
@@ -110,7 +110,7 @@ module.exports = {
       })
     })
     .catch(err => {
-      return resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured' });
+      return resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred' });
     })
   }
 };
