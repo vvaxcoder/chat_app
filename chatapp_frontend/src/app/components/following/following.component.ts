@@ -28,6 +28,11 @@ export class FollowingComponent implements OnInit {
     this.user = this.tokenService.getPayload();
 
     this.getUser();
+
+    this.socket.on('refreshPage', () => {
+
+      this.getUser();
+    });
   }
 
   getUser() {
