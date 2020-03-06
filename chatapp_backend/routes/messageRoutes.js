@@ -10,6 +10,8 @@ router.get('/chat-messages/:sender_Id/:receiver_Id', authHelper.verifyToken, Mes
 
 router.get('/receiver-messages/:sender/:receiver', authHelper.verifyToken, MessagesController.markReceiverMessages);
 
+router.get('/mark-all-messages', authHelper.verifyToken, MessagesController.markAllMessages);
+
 router.post('/chat-messages/:sender_Id/:receiver_Id', authHelper.verifyToken, MessagesController.sendMessage);
 
 module.exports = router;

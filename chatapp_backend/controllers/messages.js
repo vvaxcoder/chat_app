@@ -209,5 +209,42 @@ module.exports = {
         resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markReceiverMessages' });
       }
     }
+  },
+
+  async markAllMessages(req, resp) {
+    const msg = await Message.aggregate([
+      {
+        $match: {
+          'receiverName': req.user.username
+        }
+      },
+      {
+        $unwind: '$message'},
+      {
+        $match: {
+          'receiverName': req.user.username
+        }
+      }
+    ]);
+
+    if (msg.length > 0) {
+      try {
+        msg.forEach(async item => {
+          await Message.updateOne({
+            'message._id': value.message._id
+          },
+            {
+              $set: {
+                'message.$.isRead': true
+              }
+            });
+        });
+
+        resp.status(HttpStatus.OK).json({ message: 'All messages marked in markReceiverMessages' });
+      }
+      catch (err) {
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markAllMessages' });
+      }
+    }
   }
 };

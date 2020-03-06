@@ -6,9 +6,11 @@ module.exports = {
 
     return name.charAt(0).toUpperCase() + name.slice(1);
   },
+
   firstLetterLowercase: str => {
     return str.toLowerCase();
   },
+
   updateChatList: async (req, message) =>  {
     await User.update(
       {

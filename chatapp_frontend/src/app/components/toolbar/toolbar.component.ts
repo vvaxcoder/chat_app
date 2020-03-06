@@ -2,7 +2,7 @@ import { UsersService } from './../../services/users.service';
 import { TokenService } from './../../services/token.service';
 import { MessageService } from './../../services/message.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as M from 'materialize-css';
 import * as moment from 'moment';
 import io from 'socket.io-client';
@@ -14,7 +14,7 @@ import _math from 'lodash/math';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, AfterViewInit {
 
   user: any;
 
@@ -54,6 +54,11 @@ export class ToolbarComponent implements OnInit {
       alignment: 'right',
       hover: true,
       coverTrigger: false
+    });
+
+    this.socket.emit('online', {
+      room: 'global',
+      user: this.user.username
     });
 
     this.getUser();
@@ -139,6 +144,20 @@ export class ToolbarComponent implements OnInit {
 
     this.messageService.markMessages(this.user.username, name).subscribe(data => {
       this.socket.emit('refresh', {});
+    });
+  }
+
+  markAllMessages(event: MouseEvent) {
+    this.messageService.markAllMessages().subscribe(data => {
+      this.socket.emit('refresh', {});
+
+      this.msgNumber = 0;
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.socket.on('usersOnline', data => {
+      console.log(data);
     });
   }
 }

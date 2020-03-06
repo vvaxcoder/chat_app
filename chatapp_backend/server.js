@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 // const logger = require("morgan");
 const cors = require("cors");
+const _ = require('lodash/array');
 
 const { db_url, port } = require("./config");
 
@@ -11,6 +12,11 @@ const app = express();
 const server  = require('http').createServer(app);
 
 const io = require('socket.io').listen(server);
+
+const { User } = require('./helpers/userClass');
+
+require('./sockets/streams')(io, User, _);
+require('./sockets/private')(io);
 
 app.use(express.json({ limit: "50mb" }));
 
@@ -28,9 +34,6 @@ mongoose.connect(db_url, {
 });
 
 app.use(cors());
-
-require('./sockets/streams')(io);
-require('./sockets/private')(io);
 
 const auth = require("./routes/authRoutes");
 const posts = require("./routes/postRoutes");
