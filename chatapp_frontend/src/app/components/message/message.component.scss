@@ -186,9 +186,10 @@ emoji-content {
 }
 
 .nameCol {
-  margin-left: 28px !important;
   height: auto !important;
   width: auto !important;
+
+  margin-left: 28px !important;
   padding: 0px !important;
 }
 
@@ -210,8 +211,10 @@ emoji-content {
 }
 
 .isOnline {
-  color: white;
+  font-size: 15px;
+
   margin-top: -5px !important;
   padding: 0px !important;
-  font-size: 15px;
+
+  color: white;
 }

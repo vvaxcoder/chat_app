@@ -2,7 +2,7 @@ import { UsersService } from './../../services/users.service';
 import { TokenService } from './../../services/token.service';
 import { MessageService } from './../../services/message.service';
 import { Router } from '@angular/router';
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnInit, EventEmitter, Output } from '@angular/core';
 import * as M from 'materialize-css';
 import * as moment from 'moment';
 import io from 'socket.io-client';
@@ -15,6 +15,7 @@ import _math from 'lodash/math';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit, AfterViewInit {
+  @Output() onlineUsers = new EventEmitter();
 
   user: any;
 
@@ -81,7 +82,6 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
   getUser() {
     this.usersService.getUserById(this.user._id).subscribe(data => {
       this.notifications = data.result.notifications.reverse();
-      console.log(this.notifications);
 
       const value = _.filter(this.notifications, ['read', false]);
 
@@ -157,7 +157,7 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.socket.on('usersOnline', data => {
-      console.log(data);
+      this.onlineUsers.emit(data);
     });
   }
 }

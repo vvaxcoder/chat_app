@@ -1,17 +1,19 @@
 import { UsersService } from 'src/app/services/users.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from './../../services/message.service';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { TokenService } from 'src/app/services/token.service';
 import io from 'socket.io-client';
 import { CaretEvent, EmojiEvent } from 'ng2-emoji-picker';
+import _ from 'lodash/array';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent implements OnInit, AfterViewInit {
+export class MessageComponent implements OnInit, AfterViewInit, OnChanges {
+  @Input() users;
 
   message: string;
 
@@ -42,6 +44,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
   public content = ' ';
 
   private _lastCaretEvent: CaretEvent;
+
+  isOnline = false;
 
   constructor(private tokenService: TokenService, private messageService: MessageService,
               private route: ActivatedRoute, private usersService: UsersService) {
@@ -74,6 +78,24 @@ export class MessageComponent implements OnInit, AfterViewInit {
         this.typing = false;
       }
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const title = document.querySelector('.nameCol');
+
+    if (changes.users.currentValue.length) {
+      const result = _.findIndex(changes.users.currentValue, this.receiver);
+
+      if (result > -1) {
+        this.isOnline = true;
+
+        (title as HTMLElement).style.marginTop = '10px';
+      } else {
+        this.isOnline = false;
+
+        (title as HTMLElement).style.marginTop = '20px';
+      }
+    }
   }
 
   ngAfterViewInit(): void {
