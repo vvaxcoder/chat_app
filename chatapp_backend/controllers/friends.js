@@ -5,6 +5,7 @@ const HttpStatus = require("http-status-codes");
 module.exports = {
   followUser(req, resp) {
     const followUser = async () => {
+      console.log(req.body);
       await User.update({
         _id: req.user._id,
         "following.userFollower": { $ne: req.body.userFollower } },
@@ -21,7 +22,13 @@ module.exports = {
         { $push: {
           followers: {
             follower: req.user._id
-          }
+          },
+            notifications: {
+            senderId: req.user._id,
+              message: `${req.user.username} is now following you.`,
+              created: new Date(),
+              viewProfile: false
+            }
         }
       });
     };
@@ -31,7 +38,7 @@ module.exports = {
         resp.status(HttpStatus.OK).json({ message: 'Following user now' });
       })
       .catch(err => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in followUser method' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in followUser method' });
       });
   },
 
@@ -67,7 +74,7 @@ module.exports = {
         resp.status(HttpStatus.OK).json({ message: 'Unfollowing user' });
       })
       .catch(err => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in unfollowUser method' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in unfollowUser method' });
       });
   },
 
@@ -83,7 +90,7 @@ module.exports = {
       }).then(() => {
         resp.status(HttpStatus.OK).json({ message: 'Marked as read' });
       }).catch(error => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markNoification' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markNoification' });
       });
     }
     else {
@@ -101,7 +108,7 @@ module.exports = {
       .then(() => {
         resp.status(HttpStatus.OK).json({ message: 'Deleted successfully' });
       }).catch(error => {
-        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markNoification' });
+        resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markNoification' });
       });
     }
   },
@@ -119,7 +126,7 @@ module.exports = {
     .then(() => {
       resp.status(HttpStatus.OK).json({ message: 'Marked all successfully' });
     }).catch(error => {
-      resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occured in markAllNoifications' });
+      resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred in markAllNoifications' });
     });
   }
 };

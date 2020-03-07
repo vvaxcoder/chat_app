@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   showSpinner = false;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService,
-     private router: Router, private tokenService: TokenService) { }
+              private router: Router, private tokenService: TokenService) { }
 
   ngOnInit() {
     this.init();

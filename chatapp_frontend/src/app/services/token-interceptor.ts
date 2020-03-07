@@ -6,7 +6,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(private tokenService: TokenService) {}
-    
+
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // return next.handle(req);
         const headersConfig = {
