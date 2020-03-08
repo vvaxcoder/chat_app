@@ -1,3 +1,4 @@
+import { UsersService } from 'src/app/services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
@@ -17,7 +18,7 @@ export class ImagesComponent implements OnInit {
 
   selectedFile: any;
 
-  constructor() { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit() {
   }
@@ -50,6 +51,14 @@ export class ImagesComponent implements OnInit {
   }
 
   upload() {
-    console.log(this.selectedFile);
+    if (this.selectedFile) {
+      this.usersService.addImage(this.selectedFile).subscribe(data => {
+        const filePath = document.getElementById('filePath') as HTMLInputElement;
+
+        filePath.value = '';
+      }, err => {
+        console.log(err);
+      });
+    }
   }
 }
