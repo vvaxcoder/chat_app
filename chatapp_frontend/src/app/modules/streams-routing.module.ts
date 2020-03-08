@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommentsComponent } from '../components/comments/comments.component';
 import { NotificationsComponent } from '../components/notifications/notifications.component';
+import { ImagesComponent } from '../components/images/images.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,15 @@ const routes: Routes = [
     path: 'chat/:name',
     component: ChatComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'images/:name',
+    component: ImagesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '*',
+    redirectTo: 'streams'
   },
 ];
 

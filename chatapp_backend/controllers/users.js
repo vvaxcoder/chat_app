@@ -24,7 +24,6 @@ module.exports = {
       .populate('chatList.receiverId')
       .populate('chatList.msgId')
       .then(result => {
-        console.log(result);
         resp.status(HttpStatus.OK).json({message: 'Get user by id', result})
       })
       .catch(err => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: 'Error occurred'}));
