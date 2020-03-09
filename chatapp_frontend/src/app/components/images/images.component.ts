@@ -1,6 +1,8 @@
 import { UsersService } from 'src/app/services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+import { TokenService } from 'src/app/services/token.service';
+import io from 'socket.io-client';
 
 const URL = 'http://localhost:3000/api/chatapp/upload-image';
 
@@ -18,9 +20,34 @@ export class ImagesComponent implements OnInit {
 
   selectedFile: any;
 
-  constructor(private usersService: UsersService) { }
+  user: any;
+
+  images = [];
+
+  socketHost: any;
+
+  socket: any;
+
+  constructor(private usersService: UsersService, private tokenService: TokenService) {
+    this.socketHost = 'http://localhost:3000';
+
+    this.socket = io(this.socketHost);
+   }
 
   ngOnInit() {
+    this.user = this.tokenService.getPayload();
+
+    this.getUser();
+
+    this.socket.on('refreshPage', () => {
+      this.getUser();
+    });
+  }
+
+  getUser() {
+    this.usersService.getUserById(this.user._id).subscribe(data => {
+      this.images = data.result.images;
+    }, err => console.log(err));
   }
 
   fileSelected(event) {
@@ -53,6 +80,8 @@ export class ImagesComponent implements OnInit {
   upload() {
     if (this.selectedFile) {
       this.usersService.addImage(this.selectedFile).subscribe(data => {
+        this.socket.emit('refresh', {});
+
         const filePath = document.getElementById('filePath') as HTMLInputElement;
 
         filePath.value = '';
@@ -60,5 +89,12 @@ export class ImagesComponent implements OnInit {
         console.log(err);
       });
     }
+  }
+
+  setProfileImage(image) {
+    console.log(image);
+    this.usersService.setDefaultImage(image.imgId, image.imgVersion).subscribe(data => {
+      this.socket.emit('refresh', {});
+    }, err => console.log(err));
   }
 }

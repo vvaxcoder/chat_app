@@ -14,10 +14,7 @@ cloudinary.config({
 
 module.exports = {
   async uploadImage(req, resp) {
-    console.log(req.body.image);
     cloudinary.uploader.upload(req.body.image, async (error, result) => {
-      console.log(result);
-
       await User.updateOne({
         _id: req.user._id
       },
@@ -33,5 +30,19 @@ module.exports = {
     .catch(() => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred when image upload' }));
 
   });
+  },
+
+  async setDefaultImage(req, resp) {
+    const { imgId, imgVersion } = req.params;
+    
+    await User.updateOne({
+      _id: req.user._id
+    },
+    {
+      picId: imgId,
+      picVersion: imgVersion
+    })
+    .then(() => resp.status(HttpStatus.OK).json({ message: 'Default image set' }))
+  .catch(() => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred when default image set' }));
   }
 };

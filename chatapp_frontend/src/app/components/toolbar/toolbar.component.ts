@@ -31,6 +31,10 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
 
   msgNumber = 0;
 
+  imageId: string;
+
+  imageVersion: string;
+
   constructor(private tokenService: TokenService, private router: Router, private usersService: UsersService,
               private messageService: MessageService) {
     this.socketHost = 'http://localhost:3000';
@@ -81,6 +85,10 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
 
   getUser() {
     this.usersService.getUserById(this.user._id).subscribe(data => {
+      this.imageId = data.result.picId;
+
+      this.imageVersion = data.result.picVersion;
+
       this.notifications = data.result.notifications.reverse();
 
       const value = _.filter(this.notifications, ['read', false]);

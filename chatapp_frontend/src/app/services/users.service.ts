@@ -23,6 +23,10 @@ export class UsersService {
     return this.http.get(`${BASEURL}/usersby/${username}`);
   }
 
+  setDefaultImage(imgId, imgVersion): Observable<any> {
+    return this.http.get(`${BASEURL}/set-default-image/${imgId}/${imgVersion}`);
+  }
+
   // the same, but without use of Observable
   // async getAllUsers() {
   //   return await this.http.get(`${BASEURL}/users`);

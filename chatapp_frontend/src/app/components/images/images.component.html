@@ -32,11 +32,11 @@
             </div>
 
             <div class="row">
-              <div class="col s12 s6 l4">
+              <div class="col s12 s6 l4" *ngFor="let image of images" >
                 <div class="item-img-wrap imgDiv">
-                  <img class="imgCircle" src="http://placehold.it/50x50" alt="Icon">
+                  <img class="imgCircle" src="https://res.cloudinary.com/dztykc4lg/image/upload/v{{image.imgVersion}}/{{image.imgId}}" alt="Icon">
 
-                  <button class="btn imgBtn">Set as Profile</button>
+                  <button class="btn imgBtn" (click)="setProfileImage(image)">Set as Profile</button>
 
                 </div>
               </div>

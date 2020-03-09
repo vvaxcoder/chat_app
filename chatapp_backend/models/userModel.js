@@ -59,10 +59,10 @@ const userSchema = mongoose.Schema({
       }
     ],
     picVersion: {
-      type: String, default: ''
+      type: String, default: '1583740995'
     },
     picId: {
-      type: String, default: ''
+      type: String, default: 'default.png'
     },
     images: [
       {
