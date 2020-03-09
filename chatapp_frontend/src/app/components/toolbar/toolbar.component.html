@@ -15,7 +15,7 @@
               class="collection-item avatar"
               *ngFor="let item of notifications"
             >
-              <img class="circle" src="http://placehold.it/50x50" alt="image" />
+              <img class="circle" src="https://res.cloudinary.com/dztykc4lg/image/upload/v{{item.senderId.picVersion}}/{{item.senderId.picId}}" alt="image" />
 
               <span [ngClass]="item.read ? 'isRead' : 'unread'">{{
                 item.message
@@ -51,7 +51,7 @@
               *ngFor="let chat of chatList"
               (click)="goToChatPage(chat.receiverId.username)"
             >
-              <img class="circle" src="http://placehold.it/50x50" alt="image" />
+              <img class="circle" src="https://res.cloudinary.com/dztykc4lg/image/upload/v{{chat.receiverId.picVersion}}/{{chat.receiverId.picId}}" alt="image" />
 
               <span class="title">
                 {{ chat.receiverId.username }}

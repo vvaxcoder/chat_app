@@ -1,3 +1,4 @@
+import { ViewUserComponent } from './../components/view-user/view-user.component';
 import { ChatComponent } from './../components/chat/chat.component';
 import { FollowersComponent } from './../components/followers/followers.component';
 import { FollowingComponent } from './../components/following/following.component';
@@ -49,6 +50,11 @@ const routes: Routes = [
   {
     path: 'images/:name',
     component: ImagesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: ':name',
+    component: ViewUserComponent,
     canActivate: [AuthGuard]
   },
   {

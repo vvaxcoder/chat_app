@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UsersService } from './../../services/users.service';
 import {Component, OnInit, ɵConsole} from '@angular/core';
 import _array from 'lodash/array';
@@ -24,7 +25,7 @@ export class PeopleComponent implements OnInit {
 
   onlineUsers = [];
 
-  constructor(private usersService: UsersService, private tokenService: TokenService) {
+  constructor(private usersService: UsersService, private tokenService: TokenService, private router: Router) {
     this.socketHost = 'http://localhost:3000';
 
     this.socket = io(this.socketHost);
@@ -84,5 +85,9 @@ export class PeopleComponent implements OnInit {
     if (result > -1) {
       return true;
     } else { return false; }
+  }
+
+  viewUser(user) {
+    this.router.navigate([user.username]);
   }
 }

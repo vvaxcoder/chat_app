@@ -4,7 +4,7 @@
       <div class="card">
         <div class="valign-wrapper" style="background: #64b5f6 !important">
           <div class="col s12 imgCol">
-            <img class="circle" src="http://placehold.it/50x50" alt="image" />
+            <img *ngIf="receiverData"  class="imgCircle" src="https://res.cloudinary.com/dztykc4lg/image/upload/v{{receiverData.picVersion}}/{{receiverData.picId}}" alt="image" />
           </div>
 
           <div class="row">

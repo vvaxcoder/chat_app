@@ -24,11 +24,12 @@ import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { EmojiPickerModule } from 'ng2-emoji-picker';
 import { ImagesComponent } from '../components/images/images.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ViewUserComponent } from '../components/view-user/view-user.component';
 
 @NgModule({
   declarations: [StreamsComponent, ToolbarComponent, SideComponent, PostFormComponent,
     PostsComponent, CommentsComponent, PeopleComponent, FollowingComponent, FollowersComponent,
-    NotificationsComponent, TopStreamsComponent, ChatComponent, MessageComponent, ImagesComponent],
+    NotificationsComponent, TopStreamsComponent, ChatComponent, MessageComponent, ImagesComponent, ViewUserComponent],
   imports: [
     CommonModule,
     FormsModule,
