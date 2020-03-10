@@ -51,4 +51,8 @@ export class UsersService {
   addImage(image): Observable<any> {
     return this.http.post(`${BASEURL}/upload-image`, { image });
   }
+
+  profileNotifications(id): Observable<any> {
+    return this.http.post(`${BASEURL}/user/view-profile`, { id });
+  }
 }

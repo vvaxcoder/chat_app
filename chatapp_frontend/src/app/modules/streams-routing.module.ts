@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './../components/change-password/change-password.component';
 import { ViewUserComponent } from './../components/view-user/view-user.component';
 import { ChatComponent } from './../components/chat/chat.component';
 import { FollowersComponent } from './../components/followers/followers.component';
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     path: ':name',
     component: ViewUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account/password',
+    component: ChangePasswordComponent,
     canActivate: [AuthGuard]
   },
   {

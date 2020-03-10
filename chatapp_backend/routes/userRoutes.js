@@ -12,4 +12,6 @@ router.get('/users/:id', authHelper.verifyToken, UserController.getUserById);
 
 router.get('/usersby/:username', authHelper.verifyToken, UserController.getUserByUsername);
 
+router.post('/uer/view-profile', authHelper.verifyToken, UserController.profileView);
+
 module.exports = router;
