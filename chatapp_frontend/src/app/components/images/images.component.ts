@@ -12,7 +12,6 @@ const URL = 'http://localhost:3000/api/chatapp/upload-image';
   styleUrls: ['./images.component.scss']
 })
 export class ImagesComponent implements OnInit {
-
   uploaderFromComponent: FileUploader = new FileUploader({
     url: URL,
     disableMultipart: true
@@ -56,7 +55,6 @@ export class ImagesComponent implements OnInit {
     this.readAsBase64(file).then((result) => {
       this.selectedFile = result;
     }).catch(err => console.log(err));
-
   }
 
   readAsBase64(file): Promise<any> {

@@ -14,4 +14,6 @@ router.get('/usersby/:username', authHelper.verifyToken, UserController.getUserB
 
 router.post('/uer/view-profile', authHelper.verifyToken, UserController.profileView);
 
+router.post('/change-password', authHelper.verifyToken, UserController.changePassword);
+
 module.exports = router;

@@ -21,7 +21,9 @@ const postSchema = mongoose.Schema({
           username: { type: String, default: '' }
       }
   ],
-  created: { type: Date, default: Date.now() }
+  created: { type: Date, default: Date.now() },
+  imgId: { type: String, default: '' },
+  imgVersion: { type: String, default: '' }
 });
 
 module.exports = mongoose.model('Post', postSchema);
