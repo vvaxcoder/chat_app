@@ -40,6 +40,7 @@ const posts = require("./routes/postRoutes");
 const users = require("./routes/userRoutes");
 const friends = require("./routes/friendsRoutes");
 const messages = require("./routes/messageRoutes");
+const images = require("./routes/imagesRoutes");
 
 // app.use((req, resp, next) => {
 //   resp.header("Access-Control-Allow-Origin", "*");
@@ -64,6 +65,7 @@ app.use("/api/chatapp", posts);
 app.use("/api/chatapp", users);
 app.use("/api/chatapp", friends);
 app.use("/api/chatapp", messages);
+app.use("/api/chatapp", images);
 
 server.listen(port, () => {
   console.log(`Running on port ${port}`);

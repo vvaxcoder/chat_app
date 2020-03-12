@@ -23,6 +23,10 @@ export class UsersService {
     return this.http.get(`${BASEURL}/usersby/${username}`);
   }
 
+  setDefaultImage(imgId, imgVersion): Observable<any> {
+    return this.http.get(`${BASEURL}/set-default-image/${imgId}/${imgVersion}`);
+  }
+
   // the same, but without use of Observable
   // async getAllUsers() {
   //   return await this.http.get(`${BASEURL}/users`);
@@ -42,5 +46,17 @@ export class UsersService {
 
   markAllAsRead(): Observable<any> {
     return this.http.post(`${BASEURL}/mark-all`, { all: true });
+  }
+
+  addImage(image): Observable<any> {
+    return this.http.post(`${BASEURL}/upload-image`, { image });
+  }
+
+  profileNotifications(id): Observable<any> {
+    return this.http.post(`${BASEURL}/user/view-profile`, { id });
+  }
+
+  changePassword(body): Observable<any> {
+    return this.http.post(`${BASEURL}/change-password`, body);
   }
 }

@@ -1,3 +1,5 @@
+import { ChangePasswordComponent } from './../components/change-password/change-password.component';
+import { ViewUserComponent } from './../components/view-user/view-user.component';
 import { ChatComponent } from './../components/chat/chat.component';
 import { FollowersComponent } from './../components/followers/followers.component';
 import { FollowingComponent } from './../components/following/following.component';
@@ -8,6 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommentsComponent } from '../components/comments/comments.component';
 import { NotificationsComponent } from '../components/notifications/notifications.component';
+import { ImagesComponent } from '../components/images/images.component';
 
 const routes: Routes = [
   {
@@ -44,6 +47,25 @@ const routes: Routes = [
     path: 'chat/:name',
     component: ChatComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'images/:name',
+    component: ImagesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: ':name',
+    component: ViewUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account/password',
+    component: ChangePasswordComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '*',
+    redirectTo: 'streams'
   },
 ];
 

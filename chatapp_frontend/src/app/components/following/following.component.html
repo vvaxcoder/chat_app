@@ -12,7 +12,7 @@
           <div class="card">
             <a>
               <div class="card-image">
-                  <img class="imgCircle responsive-img" src="http://placehold.it/100x100">
+                  <img class="imgCircle responsive-img" src="https://res.cloudinary.com/dztykc4lg/image/upload/v{{user.userFollower.picVersion}}/{{user.userFollower.picId}}">
               </div>
             </a>
 
@@ -20,6 +20,8 @@
                 <h3 class="card-title">
                     {{ user.userFollower.username }}
                 </h3>
+
+                <p *ngIf="user.userFollower.city" >@{{user.userFollower.city}}, {{user.userFollower.country}}</p>
 
                 <button class="btn" (click)="unfollowUser(user.userFollower)">Unfollow</button>
             </div>

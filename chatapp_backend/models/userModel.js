@@ -57,7 +57,31 @@ const userSchema = mongoose.Schema({
           ref: 'Message'
         },
       }
-    ]
+    ],
+    picVersion: {
+      type: String, default: '1583740995'
+    },
+    picId: {
+      type: String, default: 'default.png'
+    },
+    images: [
+      {
+        imgId: {
+          type: String, default: ''
+        },
+        imgVersion: {
+          type: String, default: ''
+        }
+      }
+    ],
+    city: { type: String, default: '' },
+    country: { type: String, default: '' }
 });
+
+userSchema.statics.encryptPassword = async (password) => {
+  const hash = bcrypt.hash(password, 10);
+
+  return hash;
+};
 
 module.exports = mongoose.model('User', userSchema);
