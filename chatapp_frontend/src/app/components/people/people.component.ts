@@ -50,6 +50,7 @@ export class PeopleComponent implements OnInit {
       _array.remove(data.result, { username: this.loggedInUser.username });
 
       this.users = data.result;
+      console.log(this.users);
     });
   }
 

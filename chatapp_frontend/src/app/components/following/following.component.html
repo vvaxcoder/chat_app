@@ -21,6 +21,8 @@
                     {{ user.userFollower.username }}
                 </h3>
 
+                <p *ngIf="user.userFollower.city" >@{{user.userFollower.city}}, {{user.userFollower.country}}</p>
+
                 <button class="btn" (click)="unfollowUser(user.userFollower)">Unfollow</button>
             </div>
 

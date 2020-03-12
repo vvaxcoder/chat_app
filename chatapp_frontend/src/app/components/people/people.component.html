@@ -23,7 +23,7 @@
                     <i class="fa fa-circle" *ngIf="checkIfOnline(user.username)" ></i>
                 </h3>
 
-                <p>Country</p>
+                <p *ngIf="user.city" >{{user.city}}, {{user.country}}</p>
 
                 <button class="btn" *ngIf="!checkInArray(userArray, user._id)" (click)="followUser(user)">Follow</button>
                 <button class="btn disabled following" *ngIf="checkInArray(userArray, user._id)">Following</button>

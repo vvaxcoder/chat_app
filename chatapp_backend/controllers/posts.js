@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const Joi = require("@hapi/joi");
 
 const HttpStatus = require("http-status-codes");
@@ -6,9 +8,15 @@ const Post = require("../models/postModel");
 
 const User = require("../models/userModel");
 
-const cloudianry = require('cloudinary').v2
+const cloudianry = require("cloudinary").v2;
 
-const { cloudinary_name, cloudinary_api_key, cloudinary_api_secret } = require("../config");
+const request = require('request');
+
+const {
+  cloudinary_name,
+  cloudinary_api_key,
+  cloudinary_api_secret
+} = require("../config");
 
 module.exports = {
   addPost(req, resp) {
@@ -98,15 +106,48 @@ module.exports = {
 
   async getAllPosts(req, resp) {
     try {
-      const posts = await Post.find({})
+      const today = moment().startoOf("day");
+
+      const tomorrow = moment(today).add(1, "days");
+
+      const posts = await Post.findOne({
+        created: {
+          $gte: today.toDate(),
+          $lt: tomorrow.toDate()
+        }
+      })
         .populate("user")
         .sort({ created: -1 });
 
-      const top = await Post.find({ totalLike: { $gte: 2 } })
+      const user = await User.findOne({
+        _id: req.user._id
+      });
+
+      if (user.city === '' && user.country === '') {
+        request('https://geolocation-db.com/json', { json: true }, async (err, res, body) => {
+
+          await User.updateOne({
+            _id: req.user._id
+          }, {
+            city: body.city,
+            country: body.country_name
+          });
+        });
+      }
+
+      const top = await Post.find({
+        totalLike: { $gte: 2 },
+        created: {
+          $gte: today.toDate(),
+          $lt: tomorrow.toDate()
+        }
+      })
         .populate("user")
         .sort({ created: -1 });
 
-      return resp.status(HttpStatus.OK).json({ message: "All posts", posts, top });
+      return resp
+        .status(HttpStatus.OK)
+        .json({ message: "All posts", posts, top });
     } catch (error) {
       return resp
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -118,8 +159,7 @@ module.exports = {
     const post_id = req.body._id;
 
     await Post.updateOne(
-      { _id: post_id,
-      'likes.username': { $ne: req.user.username } },
+      { _id: post_id, "likes.username": { $ne: req.user.username } },
       {
         $push: {
           likes: {
@@ -130,9 +170,15 @@ module.exports = {
           totalLike: 1
         }
       }
-    ).then(() => {
-      resp.status(HttpStatus.OK).json({ message: 'You liked the post' });
-    }).catch(error => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred' }));
+    )
+      .then(() => {
+        resp.status(HttpStatus.OK).json({ message: "You liked the post" });
+      })
+      .catch(error =>
+        resp
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: "Error occurred" })
+      );
   },
 
   async addComment(req, resp) {
@@ -150,16 +196,28 @@ module.exports = {
           }
         }
       }
-    ).then(() => {
-      resp.status(HttpStatus.OK).json({ message: 'Comment added' });
-    }).catch(error => resp.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error occurred' }));
+    )
+      .then(() => {
+        resp.status(HttpStatus.OK).json({ message: "Comment added" });
+      })
+      .catch(error =>
+        resp
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: "Error occurred" })
+      );
   },
 
   async getPost(req, resp) {
-    await Post.findOne({ _id: req.params.id }).populate('user').populate('userId')
-    .then(post => {
-      resp.status(HttpStatus.OK).json({ message: 'Post found', post });
-    })
-    .catch(err => resp.status(HttpStatus.NOT_FOUND).json({ message: 'Post not found', post }));
-  },
+    await Post.findOne({ _id: req.params.id })
+      .populate("user")
+      .populate("userId")
+      .then(post => {
+        resp.status(HttpStatus.OK).json({ message: "Post found", post });
+      })
+      .catch(err =>
+        resp
+          .status(HttpStatus.NOT_FOUND)
+          .json({ message: "Post not found", post })
+      );
+  }
 };
