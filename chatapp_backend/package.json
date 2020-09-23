@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "^16.1.8",
+    "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.19.0",
     "cookie-parser": "^1.4.4",
@@ -20,7 +20,7 @@
     "express": "^4.17.1",
     "http-status-codes": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "moment": "^2.24.0",
     "mongoose": "^5.8.3",
     "morgan": "^1.9.1",
